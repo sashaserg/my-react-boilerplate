@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import { bindActionCreators } from 'redux';
 
+import MusicElement from '../components/MusicElement'
+
+import { bindActionCreators } from 'redux';
 import testActions from '../actions/test'
 
 class HomePage extends Component
@@ -9,23 +11,13 @@ class HomePage extends Component
 	constructor(props)
 	{
 		super(props);
-
-		this.state = {
-			propsArray: [this.props]
-		}
-	}
-
-	componentDidMount()
-	{
-		this.props.testActions.testAction();
-		this.props.testActions.testActionAsync();
 	}
 
 	render()
 	{
 		return (
 			<div>
-				HomePage
+				<MusicElement/>
 			</div>
 		)
 	}
