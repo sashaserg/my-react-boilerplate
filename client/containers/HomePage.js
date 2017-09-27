@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {Button, Grid, Row} from 'react-bootstrap'
 
-import MusicElement from '../components/MusicElement'
+import PaintComponent from '../components/PaintComponent'
 
 import { bindActionCreators } from 'redux';
 import testActions from '../actions/test'
@@ -11,14 +12,26 @@ class HomePage extends Component
 	constructor(props)
 	{
 		super(props);
+
+		this.state =
+			{
+				numbers: []
+			};
 	}
 
 	render()
 	{
+
 		return (
-			<div>
-				<MusicElement/>
-			</div>
+			<Grid fluid={true}>
+				<Row className={"text-center"}>
+
+					<div id={"paintComponentWrapper"}>
+						<PaintComponent/>
+					</div>
+
+				</Row>
+			</Grid>
 		)
 	}
 }

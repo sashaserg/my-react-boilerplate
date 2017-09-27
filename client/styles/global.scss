@@ -1,6 +1,6 @@
 @import "pragma";
 @import "reset";
-@import "components/musicElement";
+@import "components/paintComponent";
 
 body, html, #root
 {
@@ -11,16 +11,6 @@ body, html, #root
 
 body
 {
-  box-shadow: inset 5px 5px 10px 1px #3f3f3f;
-
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-
-  background: #7d7e7d;
-  background: -moz-linear-gradient(top,  #7d7e7d 0%, #0e0e0e 100%);
-  background: -webkit-linear-gradient(top,  #7d7e7d 0%,#0e0e0e 100%);
-  background: linear-gradient(to bottom,  #7d7e7d 0%,#0e0e0e 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 );
+  background-color: #e5e5e5;
 }
 
