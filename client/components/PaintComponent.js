@@ -17,11 +17,33 @@ window.requestAnimFrame = (function()
       window.setTimeout(callback, 1000 / 60);
     };
 })();
+
+function getTintedColor(color, v)
+{
+  if (color.length >6)
+  {
+    color= color.substring(1,color.length)
+  }
+
+  let rgb = parseInt(color, 16);
+  let r = Math.abs(((rgb >> 16) & 0xFF)+v); if (r>255) r=r-(r-255);
+  let g = Math.abs(((rgb >> 8) & 0xFF)+v); if (g>255) g=g-(g-255);
+  let b = Math.abs((rgb & 0xFF)+v); if (b>255) b=b-(b-255);
+  r = Number(r < 0 || isNaN(r)) ? 0 : ((r > 255) ? 255 : r).toString(16);
+  if (r.length === 1) r = '0' + r;
+  g = Number(g < 0 || isNaN(g)) ? 0 : ((g > 255) ? 255 : g).toString(16);
+  if (g.length === 1) g = '0' + g;
+  b = Number(b < 0 || isNaN(b)) ? 0 : ((b > 255) ? 255 : b).toString(16);
+  if (b.length === 1) b = '0' + b;
+  return "#" + r + g + b;
+}
 //=============================================
 
-class PaintComponent extends Component {
+class PaintComponent extends Component
+{
 
-  constructor(props) {
+  constructor(props)
+  {
     super(props);
 
     this.state =
@@ -29,6 +51,8 @@ class PaintComponent extends Component {
         showColorPicker: false,
         mousePressed: false,
         context: null,
+
+        pause: true,
 
         coords: {x: 0, y: 0},
 
@@ -52,6 +76,7 @@ class PaintComponent extends Component {
             minLineWidth: 1,
             maxLineWidth: 100,
             selectedFilter: "color",
+            selectedSample: "chessBoard",
             color: "#00FF00",
             newColor: "#00FF00"
           },
@@ -66,6 +91,17 @@ class PaintComponent extends Component {
             {value: "exclusion", name: "Exclusion"},
             {value: "hue", name: "HUE"}, {value: "saturation", name: "Saturation"}, {value: "color", name: "Color"},
             {value: "luminosity", name: "Luminosity"}, {value: "lighter", name: "Luminosity"}
+          ],
+
+        availAbleSamples:
+          [
+            {value:"chessBoard", name:"Chess Board"},
+            {value:"lineHistogram", name:"Line Histogram"},
+            {value:"3dRotation", name:"3D Rotation"},
+            {value:"snow", name:"Snow"},
+            {value:"rotatingAnimation", name:"Rotating Animation"},
+            {value:"rotatingCircles", name:"Rotating Circles"},
+            {value:"test", name:"Test"}
           ],
 
         animationParams:
@@ -83,17 +119,26 @@ class PaintComponent extends Component {
     this.changeLineWidth = this.changeLineWidth.bind(this);
     this.handleEraseButton = this.handleEraseButton.bind(this);
 
+    this.drawRotatingAnimation = this.drawRotatingAnimation.bind(this);
+    this.drawSnow = this.drawSnow.bind(this);
+    this.drawRotatingCircles = this.drawRotatingCircles.bind(this);
+    this.draw3dRotation = this.draw3dRotation.bind(this);
+    this.drawTest = this.drawTest.bind(this);
   }
 
-  drawGist(c) {
+  drawGist()
+  {
+    const c = this.state.context;
+
     const data = [];
     for (let i = 0; i < 9; i++)
       data.push(Math.floor((Math.random() * 10000) % 100))
 
     ///======================
 
-    c.fillStyle = "gray";
-    for (let i = 0; i < data.length; i++) {
+    c.fillStyle = this.state.drawingParams.color;
+    for (let i = 0; i < data.length; i++)
+    {
       let dp = data[i];
       c.fillRect(60 + i * 90, this.state.canvasParams.height - dp * 7 - 40, 50, dp * 7);
     }
@@ -112,7 +157,8 @@ class PaintComponent extends Component {
 
     c.fillStyle = "black";
 
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 9; i++)
+    {
       c.fillText((9 - i) * 10 + "", 10, i * 80 + 30);
       c.beginPath();
 
@@ -124,93 +170,125 @@ class PaintComponent extends Component {
     ///======================
 
     const labels = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP"];
-    for (let i = 0; i < labels.length; i++) {
+    for (let i = 0; i < labels.length; i++)
+    {
       c.fillText(labels[i], 75 + i * 90, this.state.canvasParams.height - 7);
     }
   }
 
-  drawSnow() {
-    window.requestAnimFrame(this.draw);
-
-    this.createParticles();
-    this.updateParticles();
-    this.killParticles();
-    this.drawParticles();
-  }
-
-  createParticles() {
-    let particles = this.state.animationParams.particles;
-
-    if (particles.length < 100) {
-      particles.push(
-        {
-          x: Math.random() * this.state.canvasParams.width,
-          y: 0,
-          speed: 2 + Math.random() * 3,
-          radius: 5 + Math.random() * 5,
-          color: "white",
-        });
+  drawSnow()
+  {
+    if( this.state.pause === false )
+    {
+      window.requestAnimFrame(this.drawSnow);
+    }
+    else
+    {
+      return;
     }
 
-    this.setState({animationParams: {particles: particles}});
-  }
+    function createParticles()
+    {
+      let particles = this.state.animationParams.particles;
 
-  updateParticles() {
-    let particles = this.state.animationParams.particles;
+      if (particles.length < 150)
+      {
+        let tintValue = Math.floor( 5 + Math.random() * 20 );
 
-    for (let i in particles) {
-      let part = particles[i];
-      part.y += part.speed;
-    }
-
-    this.setState({animationParams: {particles: particles}});
-  }
-
-  killParticles() {
-    let particles = this.state.animationParams.particles;
-
-    for (let i in particles) {
-      let part = particles[i];
-      if (part.y > this.state.canvasParams.height) {
-        part.y = 0;
+        particles.push(
+          {
+            x: Math.random() * this.state.canvasParams.width,
+            y: 0,
+            speed: 2 + Math.random() * 4,
+            radius: 2 + Math.random() * 12,
+            color: getTintedColor(this.state.drawingParams.color, tintValue)
+          });
       }
+
+      this.setState({animationParams: {particles: particles}});
     }
 
-    this.setState({animationParams: {particles: particles}});
+    function updateParticles()
+    {
+      let particles = this.state.animationParams.particles;
+
+      for (let i in particles)
+      {
+        let part = particles[i];
+        part.y += part.speed;
+      }
+
+      this.setState({animationParams: {particles: particles}});
+    }
+
+    function killParticles()
+    {
+      let particles = this.state.animationParams.particles;
+
+      particles = particles.filter( (particle) => { return particle.y < this.state.canvasParams.height });
+      this.setState({animationParams: {particles: particles}});
+    }
+
+    function drawParticles()
+    {
+      let particles = this.state.animationParams.particles;
+      const c = this.state.context;
+
+      c.fillStyle = "black";
+      c.shadowBlur = 25;
+      c.shadowOffsetX = 0;
+      c.shadowOffsetY = -1;
+
+      c.fillRect(0, 0, this.state.canvasParams.width, this.state.canvasParams.height);
+      for (let i in particles)
+      {
+        let part = particles[i];
+        c.beginPath();
+        c.arc(part.x, part.y, part.radius, 0, Math.PI * 2);
+        c.closePath();
+
+        c.shadowColor =  getTintedColor(part.color, 25);
+        c.fillStyle = part.color;
+        c.fill();
+      }
+
+      this.setState({animationParams: {particles: particles}});
+    }
+
+    //=================================================
+
+    createParticles = createParticles.bind(this);
+    updateParticles = updateParticles.bind(this);
+    killParticles = killParticles.bind(this);
+    drawParticles = drawParticles.bind(this);
+
+    createParticles();
+    updateParticles();
+    killParticles();
+    drawParticles();
   }
 
-  drawParticles() {
-    let particles = this.state.animationParams.particles;
+  drawChessBoard()
+  {
     const c = this.state.context;
 
-    c.fillStyle = "black";
-    c.fillRect(0, 0, this.state.canvasParams.width, this.state.canvasParams.height);
-    for (let i in particles) {
-      let part = particles[i];
-      c.beginPath();
-      c.arc(part.x, part.y, part.radius, 0, Math.PI * 2);
-      c.closePath();
-      c.fillStyle = part.color;
-      c.fill();
-    }
-
-    this.setState({animationParams: {particles: particles}});
-  }
-
-  draw(c) {
     let data = c.createImageData(this.state.canvasParams.width, this.state.canvasParams.height);
 
-    for (let x = 0; x < data.width; x++) {
-      for (let y = 0; y < data.height; y++) {
+    for (let x = 0; x < data.width; x++)
+    {
+      for (let y = 0; y < data.height; y++)
+      {
 
         let val = 0;
         let horz = (Math.floor(x / 10) % 2 == 0);
         let vert = (Math.floor(y / 10) % 2 == 0);
 
-        if ((horz && !vert) || (!horz && vert)) {
+        if ((horz && !vert) || (!horz && vert))
+        {
           val = 150;
         }
-        else {
+        else
+        {
           val = 50;
         }
 
@@ -225,7 +303,330 @@ class PaintComponent extends Component {
     c.putImageData(data, 0, 0);
   }
 
-  applyFilter() {
+  drawRotatingAnimation()
+  {
+    const ctx = this.state.context;
+
+    if( this.state.pause === false )
+    {
+      window.requestAnimFrame(this.drawRotatingAnimation);
+    }
+    else
+    {
+      return;
+    }
+
+    //===============================================================================
+
+    ctx.strokeStyle = "#000";
+    ctx.fillStyle = this.state.drawingParams.color;
+    ctx.lineWidth = this.state.drawingParams.lineWidth;
+    ctx.shadowBlur = 40;
+    ctx.shadowOffsetX = 10;
+    ctx.shadowOffsetY = 5;
+    ctx.shadowColor =  getTintedColor(this.state.drawingParams.color, 25);
+
+    const startPos = [((Date.now() % 2001) / 1000)*Math.PI, ((Date.now() % 1300) / 650)*Math.PI,  ((Date.now() % 1500) / 750)*Math.PI ] ;
+    const startPosReversed = [((2001 - Date.now() % 2001) / 1000)*Math.PI, ((1300 - Date.now() % 1300) / 650)*Math.PI,  ((1500 - Date.now() % 1500) / 750)*Math.PI ] ;
+
+    const center = {x: this.state.canvasParams.width/2, y: this.state.canvasParams.height/2};
+    const radius = 100 + Math.abs(25 * Math.sin( ((Date.now()/4000)%2)*Math.PI));
+
+    //=====================================================================================
+
+    ctx.clearRect(0, 0, this.state.canvasParams.width, this.state.canvasParams.height);
+
+    //======================================================================================
+
+
+    function drawMovingCircleLines(x,y, r, s1, e1, s2, e2)
+    {
+      ctx.beginPath();
+      ctx.arc(x, y, r, s1, e1);
+      ctx.stroke();
+      ctx.closePath();
+
+      ctx.beginPath();
+      ctx.arc(x, y, r, s2, e2);
+      ctx.stroke();
+      ctx.closePath();
+    }
+
+    function drawCircle(x, y, r, s, e)
+    {
+      ctx.beginPath();
+      ctx.arc(x, y, r, s, e);
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    drawMovingCircleLines(center.x, center.y, radius*0.8, startPos[0], (startPos[0] + 0.5 * Math.PI), (startPos[0] + Math.PI), (startPos[0] + Math.PI + 0.5*Math.PI) );
+    drawMovingCircleLines(center.x, center.y, radius*1.2, startPos[1], (startPos[1] + 0.3 * Math.PI), (startPos[1] + Math.PI), (startPos[1] + Math.PI + 0.3*Math.PI) );
+    drawMovingCircleLines(center.x, center.y, radius*2.0, startPos[2], (startPos[2] + 0.2 * Math.PI), (startPos[2] + Math.PI), (startPos[2] + Math.PI + 0.2*Math.PI) );
+
+    drawMovingCircleLines(center.x, center.y, radius*1.6, (startPosReversed[2] - 0.5 * Math.PI), startPosReversed[2],
+     (startPosReversed[2] - Math.PI - 0.5*Math.PI), (startPosReversed[2] - Math.PI));
+
+
+    //=======================================================================================
+
+    ctx.fillStyle = "#000";
+
+    drawCircle(center.x, center.y, radius*0.3, 0, 2 * Math.PI);
+    drawCircle(center.x, center.y, radius*0.15, 0, 2 * Math.PI);
+
+    ctx.beginPath();
+    ctx.strokeStyle = "#000";
+    ctx.arc(center.x, center.y, radius*0.3, 0, 2*Math.PI);
+    ctx.stroke();
+    ctx.closePath();
+
+    //=======================================================================================
+
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+  }
+
+  drawRotatingCircles()
+  {
+    const ctx = this.state.context;
+
+    if( this.state.pause === false )
+    {
+      window.requestAnimFrame(this.drawRotatingCircles);
+    }
+    else
+    {
+      return;
+    }
+
+    //===============================================================================
+
+    ctx.strokeStyle = this.state.drawingParams.color;
+    ctx.fillStyle = this.state.drawingParams.color;
+    ctx.lineWidth = this.state.drawingParams.lineWidth;
+    ctx.shadowBlur = 40;
+    ctx.shadowOffsetX = 10;
+    ctx.shadowOffsetY = 5;
+    ctx.shadowColor =  getTintedColor(this.state.drawingParams.color, 25);
+
+    const startPos = [((Date.now() % 2001) / 1000)*Math.PI, ((Date.now() % 1300) / 650)*Math.PI,  ((Date.now() % 1500) / 750)*Math.PI ] ;
+    const startPosReversed = [((2001 - Date.now() % 2001) / 1000)*Math.PI, ((1300 - Date.now() % 1300) / 650)*Math.PI,  ((1500 - Date.now() % 1500) / 750)*Math.PI ] ;
+
+    const center = {x: this.state.canvasParams.width/2, y: this.state.canvasParams.height/2};
+    const radius = 50;
+    const radiusVolatile = 25 + Math.abs(10 * Math.sin( ((Date.now()/1500)%2)*Math.PI));
+
+    //=====================================================================================
+
+    ctx.clearRect(0, 0, this.state.canvasParams.width, this.state.canvasParams.height);
+
+    //======================================================================================
+
+
+
+    function drawCircle(x, y, r, s, e)
+    {
+      ctx.beginPath();
+      ctx.arc(x, y, r, s, e);
+      ctx.fill();
+      ctx.closePath();
+    }
+
+
+    drawCircle( center.x + 200*Math.cos(startPos[2]), center.y + 200*Math.sin(startPos[2]), radius, 0, 2*Math.PI);
+    drawCircle( center.x - 200*Math.cos(startPos[2]), center.y - 200*Math.sin(startPos[2]), radius, 0, 2*Math.PI);
+    drawCircle( center.x,  center.y, radiusVolatile*0.5, 0, 2*Math.PI);
+
+    ctx.beginPath();
+    ctx.moveTo(center.x + 200*Math.cos(startPos[2]), center.y + 200*Math.sin(startPos[2]));
+    ctx.lineTo(center.x - 200*Math.cos(startPos[2]), center.y - 200*Math.sin(startPos[2]));
+    ctx.stroke();
+    ctx.closePath();
+
+    //=====================================================================================
+
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+  }
+
+  draw3dRotation()
+  {
+    const ctx = this.state.context;
+
+    if( this.state.pause === false )
+    {
+      window.requestAnimFrame(this.draw3dRotation);
+    }
+    else
+    {
+      return;
+    }
+
+    //===============================================================================
+
+    ctx.strokeStyle = this.state.drawingParams.color;
+    ctx.fillStyle = this.state.drawingParams.color;
+    ctx.lineWidth = this.state.drawingParams.lineWidth;
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    ctx.shadowColor =  getTintedColor(this.state.drawingParams.color, 25);
+
+    const startPos = [((Date.now() % 2001) / 1000)*Math.PI, ((Date.now() % 4000) / 2000)*Math.PI,  ((Date.now() % 1500) / 750)*Math.PI ] ;
+    const startPosReversed = [((2001 - Date.now() % 2001) / 1000)*Math.PI, ((1300 - Date.now() % 1300) / 650)*Math.PI,  ((1500 - Date.now() % 1500) / 750)*Math.PI ] ;
+
+    const center = {x: this.state.canvasParams.width/2, y: this.state.canvasParams.height/2};
+    const radius = 50;
+    const radiusVolatile = 40 + Math.abs(10 * Math.sin( ((Date.now()/1500)%2)*Math.PI));
+
+    const circlesRotationRadius = 250;
+    const linesRotationRadius = 150;
+
+    //=====================================================================================
+
+    ctx.clearRect(0, 0, this.state.canvasParams.width, this.state.canvasParams.height);
+
+    //======================================================================================
+
+
+    function drawCircle(x, y, r, s, e)
+    {
+      ctx.beginPath();
+      ctx.arc(x, y, r, s, e);
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    function connectLine(x1, y1, x2, y2)
+    {
+      ctx.beginPath();
+      ctx.moveTo(x1,y1);
+      ctx.lineTo(x2,y2);
+      ctx.stroke();
+      ctx.closePath();
+    }
+
+    drawCircle( center.x + circlesRotationRadius*Math.cos(startPos[1]), center.y + circlesRotationRadius*Math.sin(startPos[1]), radiusVolatile, 0, 2*Math.PI);
+    drawCircle( center.x - circlesRotationRadius*Math.cos(startPos[1]), center.y - circlesRotationRadius*Math.sin(startPos[1]), radiusVolatile, 0, 2*Math.PI);
+    drawCircle( center.x,  center.y, radiusVolatile*0.1, 0, 2*Math.PI);
+
+    connectLine(center.x + linesRotationRadius*Math.cos(startPos[1]), center.y + linesRotationRadius*Math.sin(startPos[1]),
+      center.x - linesRotationRadius*Math.cos(startPos[1]), center.y - linesRotationRadius*Math.sin(startPos[1]));
+
+    connectLine(center.x, center.y,
+      center.x - linesRotationRadius*Math.cos(startPos[1]) - Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y - linesRotationRadius*Math.sin(startPos[1]) + (radiusVolatile)*Math.cos(startPos[1]));
+    connectLine(center.x, center.y,
+      center.x - linesRotationRadius*Math.cos(startPos[1]) + Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y - linesRotationRadius*Math.sin(startPos[1]) - (radiusVolatile)*Math.cos(startPos[1]));
+    connectLine(center.x - linesRotationRadius*Math.cos(startPos[1]) - Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y - linesRotationRadius*Math.sin(startPos[1]) + (radiusVolatile)*Math.cos(startPos[1]),
+      center.x - linesRotationRadius*Math.cos(startPos[1]) + Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y - linesRotationRadius*Math.sin(startPos[1]) - (radiusVolatile)*Math.cos(startPos[1]));
+
+    connectLine(center.x, center.y,
+      center.x + linesRotationRadius*Math.cos(startPos[1]) - Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y + linesRotationRadius*Math.sin(startPos[1]) + (radiusVolatile)*Math.cos(startPos[1]));
+    connectLine(center.x, center.y,
+      center.x + linesRotationRadius*Math.cos(startPos[1]) + Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y + linesRotationRadius*Math.sin(startPos[1]) - (radiusVolatile)*Math.cos(startPos[1]));
+    connectLine(center.x + linesRotationRadius*Math.cos(startPos[1]) + Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y + linesRotationRadius*Math.sin(startPos[1]) - (radiusVolatile)*Math.cos(startPos[1]),
+      center.x + linesRotationRadius*Math.cos(startPos[1]) - Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y + linesRotationRadius*Math.sin(startPos[1]) + (radiusVolatile)*Math.cos(startPos[1])
+    );
+
+    //=====================================================================================
+
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+  }
+
+  drawTest()
+  {
+    const ctx = this.state.context;
+
+    if( this.state.pause === false )
+    {
+      window.requestAnimFrame(this.drawTest);
+    }
+    else
+    {
+      return;
+    }
+
+    //===============================================================================
+
+    ctx.strokeStyle = this.state.drawingParams.color;
+    ctx.fillStyle = this.state.drawingParams.color;
+    ctx.lineWidth = this.state.drawingParams.lineWidth;
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    ctx.shadowColor =  getTintedColor(this.state.drawingParams.color, 25);
+
+    const startPos = [((Date.now() % 2001) / 1000)*Math.PI, ((Date.now() % 4000) / 2000)*Math.PI,  ((Date.now() % 1500) / 750)*Math.PI ] ;
+    const startPosReversed = [((2001 - Date.now() % 2001) / 1000)*Math.PI, ((1300 - Date.now() % 1300) / 650)*Math.PI,  ((1500 - Date.now() % 1500) / 750)*Math.PI ] ;
+
+    const center = {x: this.state.canvasParams.width/2, y: this.state.canvasParams.height/2};
+    const radius = 50;
+    const radiusVolatile = 40 + Math.abs(10 * Math.sin( ((Date.now()/1500)%2)*Math.PI));
+
+    const circlesRotationRadius = 250;
+    const linesRotationRadius = 150;
+
+    //=====================================================================================
+
+    ctx.clearRect(0, 0, this.state.canvasParams.width, this.state.canvasParams.height);
+
+    //======================================================================================
+
+
+
+    function drawCircle(x, y, r, s, e)
+    {
+      ctx.beginPath();
+      ctx.arc(x, y, r, s, e);
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    function connectLine(x1, y1, x2, y2)
+    {
+      ctx.beginPath();
+      ctx.moveTo(x1,y1);
+      ctx.lineTo(x2,y2);
+      ctx.stroke();
+      ctx.closePath();
+    }
+
+    drawCircle( center.x + circlesRotationRadius*Math.cos(startPos[1]), center.y + circlesRotationRadius*Math.sin(startPos[1]), radiusVolatile, 0, 2*Math.PI);
+    drawCircle( center.x - circlesRotationRadius*Math.cos(startPos[1]), center.y - circlesRotationRadius*Math.sin(startPos[1]), radiusVolatile, 0, 2*Math.PI);
+    drawCircle( center.x,  center.y, radiusVolatile*0.1, 0, 2*Math.PI);
+
+    connectLine(center.x + linesRotationRadius*Math.cos(startPos[1]), center.y + linesRotationRadius*Math.sin(startPos[1]),
+      center.x - linesRotationRadius*Math.cos(startPos[1]), center.y - linesRotationRadius*Math.sin(startPos[1]));
+
+    connectLine(center.x, center.y,
+      center.x - linesRotationRadius*Math.cos(startPos[1]) - Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y - linesRotationRadius*Math.sin(startPos[1]) + (radiusVolatile)*Math.cos(startPos[1]));
+    connectLine(center.x, center.y,
+      center.x - linesRotationRadius*Math.cos(startPos[1]) + Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y - linesRotationRadius*Math.sin(startPos[1]) - (radiusVolatile)*Math.cos(startPos[1]));
+    connectLine(center.x - linesRotationRadius*Math.cos(startPos[1]) - Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y - linesRotationRadius*Math.sin(startPos[1]) + (radiusVolatile)*Math.cos(startPos[1]),
+      center.x - linesRotationRadius*Math.cos(startPos[1]) + Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y - linesRotationRadius*Math.sin(startPos[1]) - (radiusVolatile)*Math.cos(startPos[1]));
+
+    connectLine(center.x, center.y,
+      center.x + linesRotationRadius*Math.cos(startPos[1]) - Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y + linesRotationRadius*Math.sin(startPos[1]) + (radiusVolatile)*Math.cos(startPos[1]));
+    connectLine(center.x, center.y,
+      center.x + linesRotationRadius*Math.cos(startPos[1]) + Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y + linesRotationRadius*Math.sin(startPos[1]) - (radiusVolatile)*Math.cos(startPos[1]));
+    connectLine(center.x + linesRotationRadius*Math.cos(startPos[1]) + Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y + linesRotationRadius*Math.sin(startPos[1]) - (radiusVolatile)*Math.cos(startPos[1]),
+      center.x + linesRotationRadius*Math.cos(startPos[1]) - Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y + linesRotationRadius*Math.sin(startPos[1]) + (radiusVolatile)*Math.cos(startPos[1])
+    );
+
+    //=====================================================================================
+
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+  }
+
+  applyFilter()
+  {
     const ctx = this.state.context;
 
     ctx.globalCompositeOperation = this.state.drawingParams.selectedFilter;
@@ -236,49 +637,100 @@ class PaintComponent extends Component {
 
   //=============================================================
 
-  handleDrawButton() {
-    const c = this.state.context;
-    this.draw(c);
+  handleDrawButton()
+  {
+    switch(this.state.drawingParams.selectedSample)
+    {
+      case 'test':
+        this.setState({pause:true, animationParams:{particles:[]}}, () => setTimeout( () => {this.setState({pause:false}, () => this.drawTest())}, 10) );
+        break;
+
+      case 'chessBoard':
+        this.drawChessBoard();
+        break;
+
+      case 'lineHistogram':
+        this.drawGist();
+        break;
+
+      case 'snow':
+        this.setState({pause:true, animationParams:{particles:[]}}, () => setTimeout( () => {this.setState({pause:false}, () => this.drawSnow())}, 10) );
+        break;
+
+      case 'rotatingAnimation':
+        this.setState({pause:true, animationParams:{particles:[]}}, () => setTimeout( () => {this.setState({pause:false}, () => this.drawRotatingAnimation())}, 10) );
+        break;
+
+      case 'rotatingCircles':
+        this.setState({pause:true, animationParams:{particles:[]}}, () => setTimeout( () => {this.setState({pause:false}, () => this.drawRotatingCircles())}, 10) );
+        break;
+
+      case '3dRotation':
+        this.setState({pause:true, animationParams:{particles:[]}}, () => setTimeout( () => {this.setState({pause:false}, () => this.draw3dRotation())}, 10) );
+        break;
+
+      default:
+        break;
+    }
   }
 
-  handleChangeFilterSelect(e) {
+  handleStartButton()
+  {
+    this.changePauseState();
+  }
+
+  handleChangeFilterSelect(e)
+  {
     this.changeFilter(e.target.value)
   }
 
-  handleFilterButton() {
+  handleChangeSampleSelect(e)
+  {
+    this.changeSample(e.target.value)
+  }
+
+  handleFilterButton()
+  {
     this.applyFilter();
   }
 
-  handleLoadImageButton() {
+  handleLoadImageButton()
+  {
     const c = this.state.context;
     const img = new Image();
 
-    img.onload = () => {
+    img.onload = () =>
+    {
       c.drawImage(img, 0, 0, this.state.canvasParams.width, this.state.canvasParams.height);
     };
 
     img.src = "/images/tmp.jpg";
   }
 
-  handleColorLineChange(e) {
+  handleColorLineChange(e)
+  {
     this.changeColor(e.target.value);
   }
 
-  handleColorPickerSelectColor(color, e) {
+  handleColorPickerSelectColor(color, e)
+  {
     this.setState({showColorPicker: false});
     this.changeColor(this.state.drawingParams.newColor);
   };
 
-  handleColorPickerChangingColor(color, e) {
+  handleColorPickerChangingColor(color, e)
+  {
     this.changeTempColor(color.hex);
   }
 
-  handleHuePickerChange(color, e) {
+  handleHuePickerChange(color, e)
+  {
     this.changeColor(color.hex);
     this.changeTempColor(color.hex);
   }
 
-  handleShowColorPickerRequest(e) {
+  handleShowColorPickerRequest(e)
+  {
     this.setState({showColorPicker: true});
   }
 
@@ -305,12 +757,25 @@ class PaintComponent extends Component {
     this.setState({drawingParams:drawingParams});
   }
 
+  changeSample(val)
+  {
+    let drawingParams = this.state.drawingParams;
+    drawingParams.selectedSample = val;
+
+    this.setState({drawingParams:drawingParams});
+  }
+
   changeColor(val)
   {
     let drawingParams = this.state.drawingParams;
     drawingParams.color = val;
 
     this.setState({drawingParams:drawingParams});
+  }
+
+  changePauseState()
+  {
+    this.setState({pause: !this.state.pause});
   }
 
   changeTempColor(val)
@@ -327,7 +792,7 @@ class PaintComponent extends Component {
     this.setState({ canvasWrapperParams: canvasWrapperParams , canvasParams:{width:canvasWrapperParams.width, height:canvasWrapperParams.height}});
   }
 
-  //============================================================================================================
+  //==========================================================================================================
 
   componentDidMount()
 	{
@@ -339,11 +804,11 @@ class PaintComponent extends Component {
 		  });
 	}
 
-  //=======================================================
+  //==========================================================================================================
 
   handleEraseButton(e)
   {
-    this.state.context.clearRect(0, 0, this.state.canvasWrapperParams.width, this.state.canvasWrapperParams.height);
+    this.setState({pause:true, animationParams:{particles:[]}}, () => this.state.context.clearRect(0, 0, this.state.canvasWrapperParams.width, this.state.canvasWrapperParams.height) );
   }
 
 	_onMouseDown(e)
@@ -386,6 +851,10 @@ class PaintComponent extends Component {
                     .sort((a,b)=>{return a.name.localeCompare(b.name) })
                     .map( (item, idx) => {return( <option key={idx} value={item.value}>{item.name}</option>)});
 
+    const samples = this.state.availAbleSamples
+                    .sort((a,b)=>{return a.name.localeCompare(b.name) })
+                    .map( (item, idx) => {return( <option key={idx} value={item.value}>{item.name}</option>)});
+
 		return (
 
 			<div id={"paintComponent"}>
@@ -411,8 +880,16 @@ class PaintComponent extends Component {
             </div>
 
             <hr className={"select-disabled"}/>
-						<Button className={"rightMenuItem select-disabled"} block onClick={(e) => this.handleDrawButton(e)}>
+            <FormControl  className={"rightMenuItem select-disabled"} componentClass="select"
+                          value={this.state.drawingParams.selectedSample} onChange={(e) => this.handleChangeSampleSelect(e)}>
+              {samples}
+            </FormControl>
+						<Button className={"rightMenuItem select-disabled add-margin-top-10"} block onClick={(e) => this.handleDrawButton(e)}>
               Draw Sample
+            </Button>
+
+						<Button className={"rightMenuItem select-disabled add-margin-top-10"} block onClick={(e) => this.handleStartButton(e)} disabled={this.state.pause}>
+              Stop
             </Button>
 
             <hr className={"select-disabled"}/>
@@ -431,7 +908,7 @@ class PaintComponent extends Component {
               {filters}
             </FormControl>
 
-            <Button id={"execButton"} className={"rightMenuItem select-disabled"}  block onClick={(e) => this.handleFilterButton(e)}>
+            <Button className={"rightMenuItem select-disabled add-margin-top-10"}  block onClick={(e) => this.handleFilterButton(e)}>
               Exec
             </Button>
 

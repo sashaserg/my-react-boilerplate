@@ -46,6 +46,8 @@
     "react-select": "^1.0.0-rc.5",
     "react-selectize": "^3.0.1",
     "react-slider": "^0.9.0",
+    "react-three": "^0.9.7",
+    "react-three-renderer": "^3.2.1",
     "react-transition-group": "^1.1.2",
     "redux": "^3.7.2",
     "redux-act": "^1.4.1",
@@ -56,6 +58,7 @@
     "serve-favicon": "~2.4.2",
     "store": "^2.0.12",
     "style-loader": "^0.18.2",
+    "three": "^0.87.1",
     "treeview-react-bootstrap": "^0.4.6",
     "universal-cookie-express": "^2.0.6",
     "webpack-dev-server": "^2.7.1"
