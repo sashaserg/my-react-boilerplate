@@ -45109,7 +45109,7 @@ exports = module.exports = __webpack_require__(488)(undefined);
 
 
 // module
-exports.push([module.i, ".color-orange {\n  color: orange; }\n\n.color-white {\n  color: white; }\n\n.col-md-1, .col-md-2, .col-md-3, .col-md-4,\n.col-md-5, .col-md-6, .col-md-7, .col-md-8,\n.col-md-9, .col-md-10, .col-md-11, .col-md-12,\n.row {\n  padding: 0, 0, 0, 0 !important;\n  margin: 0, 0, 0, 0 !important; }\n\na {\n  color: inherit;\n  text-decoration: none; }\n\na:hover {\n  color: inherit;\n  text-decoration: none;\n  cursor: pointer; }\n\ntextarea, input, button {\n  outline: none; }\n\n:focus {\n  outline-color: transparent;\n  outline-style: none !important; }\n\nhr {\n  margin: 10px 2.5px 10px 2.5px; }\n\n.navbar-default {\n  margin-bottom: 0px; }\n\n#paintComponent {\n  padding: 2rem 2rem 2rem 2rem; }\n\n#paintComponentWrapper {\n  display: inline-block;\n  position: relative; }\n\n#canvasArea {\n  cursor: default;\n  display: inline-block;\n  vertical-align: top;\n  box-shadow: gray 3px 2px 10px 2px;\n  background-color: white;\n  width: 90rem;\n  height: 75rem; }\n\n#canvasArea:active {\n  cursor: default; }\n\n.select-disabled {\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n\n#instrumentsAreaRight {\n  display: inline-block;\n  vertical-align: top;\n  margin: 0 0 0 2.5rem;\n  padding: 2rem 2rem 2rem 2rem;\n  box-shadow: gray 3px 2px 10px 2px;\n  background-color: white;\n  width: 20rem;\n  height: 75rem; }\n  #instrumentsAreaRight hr {\n    box-shadow: 2px 1px 6px 1px gray;\n    height: 0.2rem;\n    border: none;\n    color: gray;\n    background-color: gray; }\n\n#instrumentsAreaBottom {\n  margin: 2.5rem 0 0 0;\n  padding: 1.3rem 1rem 1.3rem 1rem;\n  box-shadow: gray 3px 2px 10px 2px;\n  background-color: white;\n  width: 112.5rem; }\n\n#mouseCoordsContainer, #paramsContainer {\n  text-align: left;\n  padding: 1.5rem 1.5rem 1.5rem 1.5rem;\n  box-shadow: 2px 1px 6px 1px gray;\n  border: gray 2px solid;\n  border-radius: 6px; }\n\n#colorShowDiv {\n  cursor: pointer;\n  width: 3.2rem;\n  margin-right: 10px;\n  background-color: black;\n  border: gray solid 1px;\n  border-radius: 8px; }\n\n.rightMenuItem {\n  border: gray 2px solid;\n  box-shadow: 2px 1px 6px 1px gray; }\n\n#execButton {\n  margin-top: 10px; }\n\n.modal-dialog {\n  margin-top: 250px; }\n\n.photoshop-picker {\n  width: 100% !important; }\n\n#huePickerWrapper {\n  padding: 0.8rem 1rem 0.8rem 1rem;\n  border: gray 2px solid;\n  border-radius: 8px; }\n  #huePickerWrapper .hue-picker {\n    width: 100%; }\n\nbody, html, #root {\n  width: 100%;\n  height: 100%;\n  min-height: 100%; }\n\nbody {\n  height: 100%;\n  background-color: #e5e5e5; }\n", ""]);
+exports.push([module.i, ".color-orange {\n  color: orange; }\n\n.color-white {\n  color: white; }\n\n.add-margin-top-10 {\n  margin-top: 10px; }\n\n.col-md-1, .col-md-2, .col-md-3, .col-md-4,\n.col-md-5, .col-md-6, .col-md-7, .col-md-8,\n.col-md-9, .col-md-10, .col-md-11, .col-md-12,\n.row {\n  padding: 0, 0, 0, 0 !important;\n  margin: 0, 0, 0, 0 !important; }\n\na {\n  color: inherit;\n  text-decoration: none; }\n\na:hover {\n  color: inherit;\n  text-decoration: none;\n  cursor: pointer; }\n\ntextarea, input, button {\n  outline: none; }\n\n:focus {\n  outline-color: transparent;\n  outline-style: none !important; }\n\nhr {\n  margin: 10px 2.5px 10px 2.5px; }\n\n.navbar-default {\n  margin-bottom: 0px; }\n\n#paintComponent {\n  padding: 2rem 2rem 2rem 2rem; }\n\n#paintComponentWrapper {\n  display: inline-block;\n  position: relative; }\n\n#canvasArea {\n  cursor: default;\n  display: inline-block;\n  vertical-align: top;\n  box-shadow: gray 3px 2px 10px 2px;\n  background-color: white;\n  width: 90rem;\n  height: 75rem; }\n\n#canvasArea:active {\n  cursor: default; }\n\n.select-disabled {\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n\n#instrumentsAreaRight {\n  display: inline-block;\n  vertical-align: top;\n  margin: 0 0 0 2.5rem;\n  padding: 2rem 2rem 2rem 2rem;\n  box-shadow: gray 3px 2px 10px 2px;\n  background-color: white;\n  width: 20rem;\n  height: 75rem; }\n  #instrumentsAreaRight hr {\n    box-shadow: 2px 1px 6px 1px gray;\n    height: 0.2rem;\n    border: none;\n    color: gray;\n    background-color: gray; }\n\n#instrumentsAreaBottom {\n  margin: 2.5rem 0 0 0;\n  padding: 1.3rem 1rem 1.3rem 1rem;\n  box-shadow: gray 3px 2px 10px 2px;\n  background-color: white;\n  width: 112.5rem; }\n\n#mouseCoordsContainer, #paramsContainer {\n  text-align: left;\n  padding: 1.5rem 1.5rem 1.5rem 1.5rem;\n  box-shadow: 2px 1px 6px 1px gray;\n  border: gray 2px solid;\n  border-radius: 6px; }\n\n#colorShowDiv {\n  cursor: pointer;\n  width: 3.2rem;\n  margin-right: 10px;\n  background-color: black;\n  border: gray solid 1px;\n  border-radius: 8px; }\n\n.rightMenuItem {\n  border: gray 2px solid;\n  box-shadow: 2px 1px 6px 1px gray; }\n\n.modal-dialog {\n  margin-top: 250px; }\n\n.photoshop-picker {\n  width: 100% !important; }\n\n#huePickerWrapper {\n  padding: 0.8rem 1rem 0.8rem 1rem;\n  border: gray 2px solid;\n  border-radius: 8px; }\n  #huePickerWrapper .hue-picker {\n    width: 100%; }\n\nbody, html, #root {\n  width: 100%;\n  height: 100%;\n  min-height: 100%; }\n\nbody {\n  height: 100%;\n  background-color: #e5e5e5; }\n", ""]);
 
 // exports
 
@@ -57436,6 +57436,24 @@ window.requestAnimFrame = function () {
     window.setTimeout(callback, 1000 / 60);
   };
 }();
+
+function getTintedColor(color, v) {
+  if (color.length > 6) {
+    color = color.substring(1, color.length);
+  }
+
+  var rgb = parseInt(color, 16);
+  var r = Math.abs((rgb >> 16 & 0xFF) + v);if (r > 255) r = r - (r - 255);
+  var g = Math.abs((rgb >> 8 & 0xFF) + v);if (g > 255) g = g - (g - 255);
+  var b = Math.abs((rgb & 0xFF) + v);if (b > 255) b = b - (b - 255);
+  r = Number(r < 0 || isNaN(r)) ? 0 : (r > 255 ? 255 : r).toString(16);
+  if (r.length === 1) r = '0' + r;
+  g = Number(g < 0 || isNaN(g)) ? 0 : (g > 255 ? 255 : g).toString(16);
+  if (g.length === 1) g = '0' + g;
+  b = Number(b < 0 || isNaN(b)) ? 0 : (b > 255 ? 255 : b).toString(16);
+  if (b.length === 1) b = '0' + b;
+  return "#" + r + g + b;
+}
 //=============================================
 
 var PaintComponent = function (_Component) {
@@ -57450,6 +57468,8 @@ var PaintComponent = function (_Component) {
       showColorPicker: false,
       mousePressed: false,
       context: null,
+
+      pause: true,
 
       coords: { x: 0, y: 0 },
 
@@ -57470,11 +57490,14 @@ var PaintComponent = function (_Component) {
         minLineWidth: 1,
         maxLineWidth: 100,
         selectedFilter: "color",
+        selectedSample: "chessBoard",
         color: "#00FF00",
         newColor: "#00FF00"
       },
 
       availableFilters: [{ value: "xor", name: "XOR" }, { value: "overlay", name: "Overlay" }, { value: "darken", name: "Darken" }, { value: "lighten", name: "Lighten" }, { value: "color-dodge", name: "Color dodge" }, { value: "color-burn", name: "Color burn" }, { value: "hard-light", name: "Hard light" }, { value: "soft-light", name: "Hard light" }, { value: "difference", name: "Difference" }, { value: "exclusion", name: "Exclusion" }, { value: "hue", name: "HUE" }, { value: "saturation", name: "Saturation" }, { value: "color", name: "Color" }, { value: "luminosity", name: "Luminosity" }, { value: "lighter", name: "Luminosity" }],
+
+      availAbleSamples: [{ value: "chessBoard", name: "Chess Board" }, { value: "lineHistogram", name: "Line Histogram" }, { value: "3dRotation", name: "3D Rotation" }, { value: "snow", name: "Snow" }, { value: "rotatingAnimation", name: "Rotating Animation" }, { value: "rotatingCircles", name: "Rotating Circles" }, { value: "test", name: "Test" }],
 
       animationParams: {
         particles: []
@@ -57490,18 +57513,25 @@ var PaintComponent = function (_Component) {
     _this.changeLineWidth = _this.changeLineWidth.bind(_this);
     _this.handleEraseButton = _this.handleEraseButton.bind(_this);
 
+    _this.drawRotatingAnimation = _this.drawRotatingAnimation.bind(_this);
+    _this.drawSnow = _this.drawSnow.bind(_this);
+    _this.drawRotatingCircles = _this.drawRotatingCircles.bind(_this);
+    _this.draw3dRotation = _this.draw3dRotation.bind(_this);
+    _this.drawTest = _this.drawTest.bind(_this);
     return _this;
   }
 
   _createClass(PaintComponent, [{
     key: 'drawGist',
-    value: function drawGist(c) {
+    value: function drawGist() {
+      var c = this.state.context;
+
       var data = [];
       for (var i = 0; i < 9; i++) {
         data.push(Math.floor(Math.random() * 10000 % 100));
       } ///======================
 
-      c.fillStyle = "gray";
+      c.fillStyle = this.state.drawingParams.color;
       for (var _i = 0; _i < data.length; _i++) {
         var dp = data[_i];
         c.fillRect(60 + _i * 90, this.state.canvasParams.height - dp * 7 - 40, 50, dp * 7);
@@ -57540,78 +57570,93 @@ var PaintComponent = function (_Component) {
   }, {
     key: 'drawSnow',
     value: function drawSnow() {
-      window.requestAnimFrame(this.draw);
-
-      this.createParticles();
-      this.updateParticles();
-      this.killParticles();
-      this.drawParticles();
-    }
-  }, {
-    key: 'createParticles',
-    value: function createParticles() {
-      var particles = this.state.animationParams.particles;
-
-      if (particles.length < 100) {
-        particles.push({
-          x: Math.random() * this.state.canvasParams.width,
-          y: 0,
-          speed: 2 + Math.random() * 3,
-          radius: 5 + Math.random() * 5,
-          color: "white"
-        });
+      if (this.state.pause === false) {
+        window.requestAnimFrame(this.drawSnow);
+      } else {
+        return;
       }
 
-      this.setState({ animationParams: { particles: particles } });
-    }
-  }, {
-    key: 'updateParticles',
-    value: function updateParticles() {
-      var particles = this.state.animationParams.particles;
+      function createParticles() {
+        var particles = this.state.animationParams.particles;
 
-      for (var i in particles) {
-        var part = particles[i];
-        part.y += part.speed;
-      }
+        if (particles.length < 150) {
+          var tintValue = Math.floor(5 + Math.random() * 20);
 
-      this.setState({ animationParams: { particles: particles } });
-    }
-  }, {
-    key: 'killParticles',
-    value: function killParticles() {
-      var particles = this.state.animationParams.particles;
-
-      for (var i in particles) {
-        var part = particles[i];
-        if (part.y > this.state.canvasParams.height) {
-          part.y = 0;
+          particles.push({
+            x: Math.random() * this.state.canvasParams.width,
+            y: 0,
+            speed: 2 + Math.random() * 4,
+            radius: 2 + Math.random() * 12,
+            color: getTintedColor(this.state.drawingParams.color, tintValue)
+          });
         }
+
+        this.setState({ animationParams: { particles: particles } });
       }
 
-      this.setState({ animationParams: { particles: particles } });
+      function updateParticles() {
+        var particles = this.state.animationParams.particles;
+
+        for (var i in particles) {
+          var part = particles[i];
+          part.y += part.speed;
+        }
+
+        this.setState({ animationParams: { particles: particles } });
+      }
+
+      function killParticles() {
+        var _this2 = this;
+
+        var particles = this.state.animationParams.particles;
+
+        particles = particles.filter(function (particle) {
+          return particle.y < _this2.state.canvasParams.height;
+        });
+        this.setState({ animationParams: { particles: particles } });
+      }
+
+      function drawParticles() {
+        var particles = this.state.animationParams.particles;
+        var c = this.state.context;
+
+        c.fillStyle = "black";
+        c.shadowBlur = 25;
+        c.shadowOffsetX = 0;
+        c.shadowOffsetY = -1;
+
+        c.fillRect(0, 0, this.state.canvasParams.width, this.state.canvasParams.height);
+        for (var i in particles) {
+          var part = particles[i];
+          c.beginPath();
+          c.arc(part.x, part.y, part.radius, 0, Math.PI * 2);
+          c.closePath();
+
+          c.shadowColor = getTintedColor(part.color, 25);
+          c.fillStyle = part.color;
+          c.fill();
+        }
+
+        this.setState({ animationParams: { particles: particles } });
+      }
+
+      //=================================================
+
+      createParticles = createParticles.bind(this);
+      updateParticles = updateParticles.bind(this);
+      killParticles = killParticles.bind(this);
+      drawParticles = drawParticles.bind(this);
+
+      createParticles();
+      updateParticles();
+      killParticles();
+      drawParticles();
     }
   }, {
-    key: 'drawParticles',
-    value: function drawParticles() {
-      var particles = this.state.animationParams.particles;
+    key: 'drawChessBoard',
+    value: function drawChessBoard() {
       var c = this.state.context;
 
-      c.fillStyle = "black";
-      c.fillRect(0, 0, this.state.canvasParams.width, this.state.canvasParams.height);
-      for (var i in particles) {
-        var part = particles[i];
-        c.beginPath();
-        c.arc(part.x, part.y, part.radius, 0, Math.PI * 2);
-        c.closePath();
-        c.fillStyle = part.color;
-        c.fill();
-      }
-
-      this.setState({ animationParams: { particles: particles } });
-    }
-  }, {
-    key: 'draw',
-    value: function draw(c) {
       var data = c.createImageData(this.state.canvasParams.width, this.state.canvasParams.height);
 
       for (var x = 0; x < data.width; x++) {
@@ -57638,6 +57683,288 @@ var PaintComponent = function (_Component) {
       c.putImageData(data, 0, 0);
     }
   }, {
+    key: 'drawRotatingAnimation',
+    value: function drawRotatingAnimation() {
+      var ctx = this.state.context;
+
+      if (this.state.pause === false) {
+        window.requestAnimFrame(this.drawRotatingAnimation);
+      } else {
+        return;
+      }
+
+      //===============================================================================
+
+      ctx.strokeStyle = "#000";
+      ctx.fillStyle = this.state.drawingParams.color;
+      ctx.lineWidth = this.state.drawingParams.lineWidth;
+      ctx.shadowBlur = 40;
+      ctx.shadowOffsetX = 10;
+      ctx.shadowOffsetY = 5;
+      ctx.shadowColor = getTintedColor(this.state.drawingParams.color, 25);
+
+      var startPos = [Date.now() % 2001 / 1000 * Math.PI, Date.now() % 1300 / 650 * Math.PI, Date.now() % 1500 / 750 * Math.PI];
+      var startPosReversed = [(2001 - Date.now() % 2001) / 1000 * Math.PI, (1300 - Date.now() % 1300) / 650 * Math.PI, (1500 - Date.now() % 1500) / 750 * Math.PI];
+
+      var center = { x: this.state.canvasParams.width / 2, y: this.state.canvasParams.height / 2 };
+      var radius = 100 + Math.abs(25 * Math.sin(Date.now() / 4000 % 2 * Math.PI));
+
+      //=====================================================================================
+
+      ctx.clearRect(0, 0, this.state.canvasParams.width, this.state.canvasParams.height);
+
+      //======================================================================================
+
+
+      function drawMovingCircleLines(x, y, r, s1, e1, s2, e2) {
+        ctx.beginPath();
+        ctx.arc(x, y, r, s1, e1);
+        ctx.stroke();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.arc(x, y, r, s2, e2);
+        ctx.stroke();
+        ctx.closePath();
+      }
+
+      function drawCircle(x, y, r, s, e) {
+        ctx.beginPath();
+        ctx.arc(x, y, r, s, e);
+        ctx.fill();
+        ctx.closePath();
+      }
+
+      drawMovingCircleLines(center.x, center.y, radius * 0.8, startPos[0], startPos[0] + 0.5 * Math.PI, startPos[0] + Math.PI, startPos[0] + Math.PI + 0.5 * Math.PI);
+      drawMovingCircleLines(center.x, center.y, radius * 1.2, startPos[1], startPos[1] + 0.3 * Math.PI, startPos[1] + Math.PI, startPos[1] + Math.PI + 0.3 * Math.PI);
+      drawMovingCircleLines(center.x, center.y, radius * 2.0, startPos[2], startPos[2] + 0.2 * Math.PI, startPos[2] + Math.PI, startPos[2] + Math.PI + 0.2 * Math.PI);
+
+      drawMovingCircleLines(center.x, center.y, radius * 1.6, startPosReversed[2] - 0.5 * Math.PI, startPosReversed[2], startPosReversed[2] - Math.PI - 0.5 * Math.PI, startPosReversed[2] - Math.PI);
+
+      //=======================================================================================
+
+      ctx.fillStyle = "#000";
+
+      drawCircle(center.x, center.y, radius * 0.3, 0, 2 * Math.PI);
+      drawCircle(center.x, center.y, radius * 0.15, 0, 2 * Math.PI);
+
+      ctx.beginPath();
+      ctx.strokeStyle = "#000";
+      ctx.arc(center.x, center.y, radius * 0.3, 0, 2 * Math.PI);
+      ctx.stroke();
+      ctx.closePath();
+
+      //=======================================================================================
+
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+    }
+  }, {
+    key: 'drawRotatingCircles',
+    value: function drawRotatingCircles() {
+      var ctx = this.state.context;
+
+      if (this.state.pause === false) {
+        window.requestAnimFrame(this.drawRotatingCircles);
+      } else {
+        return;
+      }
+
+      //===============================================================================
+
+      ctx.strokeStyle = this.state.drawingParams.color;
+      ctx.fillStyle = this.state.drawingParams.color;
+      ctx.lineWidth = this.state.drawingParams.lineWidth;
+      ctx.shadowBlur = 40;
+      ctx.shadowOffsetX = 10;
+      ctx.shadowOffsetY = 5;
+      ctx.shadowColor = getTintedColor(this.state.drawingParams.color, 25);
+
+      var startPos = [Date.now() % 2001 / 1000 * Math.PI, Date.now() % 1300 / 650 * Math.PI, Date.now() % 1500 / 750 * Math.PI];
+      var startPosReversed = [(2001 - Date.now() % 2001) / 1000 * Math.PI, (1300 - Date.now() % 1300) / 650 * Math.PI, (1500 - Date.now() % 1500) / 750 * Math.PI];
+
+      var center = { x: this.state.canvasParams.width / 2, y: this.state.canvasParams.height / 2 };
+      var radius = 50;
+      var radiusVolatile = 25 + Math.abs(10 * Math.sin(Date.now() / 1500 % 2 * Math.PI));
+
+      //=====================================================================================
+
+      ctx.clearRect(0, 0, this.state.canvasParams.width, this.state.canvasParams.height);
+
+      //======================================================================================
+
+
+      function drawCircle(x, y, r, s, e) {
+        ctx.beginPath();
+        ctx.arc(x, y, r, s, e);
+        ctx.fill();
+        ctx.closePath();
+      }
+
+      drawCircle(center.x + 200 * Math.cos(startPos[2]), center.y + 200 * Math.sin(startPos[2]), radius, 0, 2 * Math.PI);
+      drawCircle(center.x - 200 * Math.cos(startPos[2]), center.y - 200 * Math.sin(startPos[2]), radius, 0, 2 * Math.PI);
+      drawCircle(center.x, center.y, radiusVolatile * 0.5, 0, 2 * Math.PI);
+
+      ctx.beginPath();
+      ctx.moveTo(center.x + 200 * Math.cos(startPos[2]), center.y + 200 * Math.sin(startPos[2]));
+      ctx.lineTo(center.x - 200 * Math.cos(startPos[2]), center.y - 200 * Math.sin(startPos[2]));
+      ctx.stroke();
+      ctx.closePath();
+
+      //=====================================================================================
+
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+    }
+  }, {
+    key: 'draw3dRotation',
+    value: function draw3dRotation() {
+      var ctx = this.state.context;
+
+      if (this.state.pause === false) {
+        window.requestAnimFrame(this.draw3dRotation);
+      } else {
+        return;
+      }
+
+      //===============================================================================
+
+      ctx.strokeStyle = this.state.drawingParams.color;
+      ctx.fillStyle = this.state.drawingParams.color;
+      ctx.lineWidth = this.state.drawingParams.lineWidth;
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+      ctx.shadowColor = getTintedColor(this.state.drawingParams.color, 25);
+
+      var startPos = [Date.now() % 2001 / 1000 * Math.PI, Date.now() % 4000 / 2000 * Math.PI, Date.now() % 1500 / 750 * Math.PI];
+      var startPosReversed = [(2001 - Date.now() % 2001) / 1000 * Math.PI, (1300 - Date.now() % 1300) / 650 * Math.PI, (1500 - Date.now() % 1500) / 750 * Math.PI];
+
+      var center = { x: this.state.canvasParams.width / 2, y: this.state.canvasParams.height / 2 };
+      var radius = 50;
+      var radiusVolatile = 40 + Math.abs(10 * Math.sin(Date.now() / 1500 % 2 * Math.PI));
+
+      var circlesRotationRadius = 250;
+      var linesRotationRadius = 150;
+
+      //=====================================================================================
+
+      ctx.clearRect(0, 0, this.state.canvasParams.width, this.state.canvasParams.height);
+
+      //======================================================================================
+
+
+      function drawCircle(x, y, r, s, e) {
+        ctx.beginPath();
+        ctx.arc(x, y, r, s, e);
+        ctx.fill();
+        ctx.closePath();
+      }
+
+      function connectLine(x1, y1, x2, y2) {
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+        ctx.closePath();
+      }
+
+      drawCircle(center.x + circlesRotationRadius * Math.cos(startPos[1]), center.y + circlesRotationRadius * Math.sin(startPos[1]), radiusVolatile, 0, 2 * Math.PI);
+      drawCircle(center.x - circlesRotationRadius * Math.cos(startPos[1]), center.y - circlesRotationRadius * Math.sin(startPos[1]), radiusVolatile, 0, 2 * Math.PI);
+      drawCircle(center.x, center.y, radiusVolatile * 0.1, 0, 2 * Math.PI);
+
+      connectLine(center.x + linesRotationRadius * Math.cos(startPos[1]), center.y + linesRotationRadius * Math.sin(startPos[1]), center.x - linesRotationRadius * Math.cos(startPos[1]), center.y - linesRotationRadius * Math.sin(startPos[1]));
+
+      connectLine(center.x, center.y, center.x - linesRotationRadius * Math.cos(startPos[1]) - Math.abs(radiusVolatile * Math.sin(startPos[1])), center.y - linesRotationRadius * Math.sin(startPos[1]) + radiusVolatile * Math.cos(startPos[1]));
+      connectLine(center.x, center.y, center.x - linesRotationRadius * Math.cos(startPos[1]) + Math.abs(radiusVolatile * Math.sin(startPos[1])), center.y - linesRotationRadius * Math.sin(startPos[1]) - radiusVolatile * Math.cos(startPos[1]));
+      connectLine(center.x - linesRotationRadius * Math.cos(startPos[1]) - Math.abs(radiusVolatile * Math.sin(startPos[1])), center.y - linesRotationRadius * Math.sin(startPos[1]) + radiusVolatile * Math.cos(startPos[1]), center.x - linesRotationRadius * Math.cos(startPos[1]) + Math.abs(radiusVolatile * Math.sin(startPos[1])), center.y - linesRotationRadius * Math.sin(startPos[1]) - radiusVolatile * Math.cos(startPos[1]));
+
+      connectLine(center.x, center.y, center.x + linesRotationRadius * Math.cos(startPos[1]) - Math.abs(radiusVolatile * Math.sin(startPos[1])), center.y + linesRotationRadius * Math.sin(startPos[1]) + radiusVolatile * Math.cos(startPos[1]));
+      connectLine(center.x, center.y, center.x + linesRotationRadius * Math.cos(startPos[1]) + Math.abs(radiusVolatile * Math.sin(startPos[1])), center.y + linesRotationRadius * Math.sin(startPos[1]) - radiusVolatile * Math.cos(startPos[1]));
+      connectLine(center.x + linesRotationRadius * Math.cos(startPos[1]) + Math.abs(radiusVolatile * Math.sin(startPos[1])), center.y + linesRotationRadius * Math.sin(startPos[1]) - radiusVolatile * Math.cos(startPos[1]), center.x + linesRotationRadius * Math.cos(startPos[1]) - Math.abs(radiusVolatile * Math.sin(startPos[1])), center.y + linesRotationRadius * Math.sin(startPos[1]) + radiusVolatile * Math.cos(startPos[1]));
+
+      //=====================================================================================
+
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+    }
+  }, {
+    key: 'drawTest',
+    value: function drawTest() {
+      var ctx = this.state.context;
+
+      if (this.state.pause === false) {
+        window.requestAnimFrame(this.drawTest);
+      } else {
+        return;
+      }
+
+      //===============================================================================
+
+      ctx.strokeStyle = this.state.drawingParams.color;
+      ctx.fillStyle = this.state.drawingParams.color;
+      ctx.lineWidth = this.state.drawingParams.lineWidth;
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+      ctx.shadowColor = getTintedColor(this.state.drawingParams.color, 25);
+
+      var startPos = [Date.now() % 2001 / 1000 * Math.PI, Date.now() % 4000 / 2000 * Math.PI, Date.now() % 1500 / 750 * Math.PI];
+      var startPosReversed = [(2001 - Date.now() % 2001) / 1000 * Math.PI, (1300 - Date.now() % 1300) / 650 * Math.PI, (1500 - Date.now() % 1500) / 750 * Math.PI];
+
+      var center = { x: this.state.canvasParams.width / 2, y: this.state.canvasParams.height / 2 };
+      var radius = 50;
+      var radiusVolatile = 40 + Math.abs(10 * Math.sin(Date.now() / 1500 % 2 * Math.PI));
+
+      var circlesRotationRadius = 250;
+      var linesRotationRadius = 150;
+
+      //=====================================================================================
+
+      ctx.clearRect(0, 0, this.state.canvasParams.width, this.state.canvasParams.height);
+
+      //======================================================================================
+
+
+      function drawCircle(x, y, r, s, e) {
+        ctx.beginPath();
+        ctx.arc(x, y, r, s, e);
+        ctx.fill();
+        ctx.closePath();
+      }
+
+      function connectLine(x1, y1, x2, y2) {
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+        ctx.closePath();
+      }
+
+      drawCircle(center.x + circlesRotationRadius * Math.cos(startPos[1]), center.y + circlesRotationRadius * Math.sin(startPos[1]), radiusVolatile, 0, 2 * Math.PI);
+      drawCircle(center.x - circlesRotationRadius * Math.cos(startPos[1]), center.y - circlesRotationRadius * Math.sin(startPos[1]), radiusVolatile, 0, 2 * Math.PI);
+      drawCircle(center.x, center.y, radiusVolatile * 0.1, 0, 2 * Math.PI);
+
+      connectLine(center.x + linesRotationRadius * Math.cos(startPos[1]), center.y + linesRotationRadius * Math.sin(startPos[1]), center.x - linesRotationRadius * Math.cos(startPos[1]), center.y - linesRotationRadius * Math.sin(startPos[1]));
+
+      connectLine(center.x, center.y, center.x - linesRotationRadius * Math.cos(startPos[1]) - Math.abs(radiusVolatile * Math.sin(startPos[1])), center.y - linesRotationRadius * Math.sin(startPos[1]) + radiusVolatile * Math.cos(startPos[1]));
+      connectLine(center.x, center.y, center.x - linesRotationRadius * Math.cos(startPos[1]) + Math.abs(radiusVolatile * Math.sin(startPos[1])), center.y - linesRotationRadius * Math.sin(startPos[1]) - radiusVolatile * Math.cos(startPos[1]));
+      connectLine(center.x - linesRotationRadius * Math.cos(startPos[1]) - Math.abs(radiusVolatile * Math.sin(startPos[1])), center.y - linesRotationRadius * Math.sin(startPos[1]) + radiusVolatile * Math.cos(startPos[1]), center.x - linesRotationRadius * Math.cos(startPos[1]) + Math.abs(radiusVolatile * Math.sin(startPos[1])), center.y - linesRotationRadius * Math.sin(startPos[1]) - radiusVolatile * Math.cos(startPos[1]));
+
+      connectLine(center.x, center.y, center.x + linesRotationRadius * Math.cos(startPos[1]) - Math.abs(radiusVolatile * Math.sin(startPos[1])), center.y + linesRotationRadius * Math.sin(startPos[1]) + radiusVolatile * Math.cos(startPos[1]));
+      connectLine(center.x, center.y, center.x + linesRotationRadius * Math.cos(startPos[1]) + Math.abs(radiusVolatile * Math.sin(startPos[1])), center.y + linesRotationRadius * Math.sin(startPos[1]) - radiusVolatile * Math.cos(startPos[1]));
+      connectLine(center.x + linesRotationRadius * Math.cos(startPos[1]) + Math.abs(radiusVolatile * Math.sin(startPos[1])), center.y + linesRotationRadius * Math.sin(startPos[1]) - radiusVolatile * Math.cos(startPos[1]), center.x + linesRotationRadius * Math.cos(startPos[1]) - Math.abs(radiusVolatile * Math.sin(startPos[1])), center.y + linesRotationRadius * Math.sin(startPos[1]) + radiusVolatile * Math.cos(startPos[1]));
+
+      //=====================================================================================
+
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+    }
+  }, {
     key: 'applyFilter',
     value: function applyFilter() {
       var ctx = this.state.context;
@@ -57653,13 +57980,85 @@ var PaintComponent = function (_Component) {
   }, {
     key: 'handleDrawButton',
     value: function handleDrawButton() {
-      var c = this.state.context;
-      this.draw(c);
+      var _this3 = this;
+
+      switch (this.state.drawingParams.selectedSample) {
+        case 'test':
+          this.setState({ pause: true, animationParams: { particles: [] } }, function () {
+            return setTimeout(function () {
+              _this3.setState({ pause: false }, function () {
+                return _this3.drawTest();
+              });
+            }, 10);
+          });
+          break;
+
+        case 'chessBoard':
+          this.drawChessBoard();
+          break;
+
+        case 'lineHistogram':
+          this.drawGist();
+          break;
+
+        case 'snow':
+          this.setState({ pause: true, animationParams: { particles: [] } }, function () {
+            return setTimeout(function () {
+              _this3.setState({ pause: false }, function () {
+                return _this3.drawSnow();
+              });
+            }, 10);
+          });
+          break;
+
+        case 'rotatingAnimation':
+          this.setState({ pause: true, animationParams: { particles: [] } }, function () {
+            return setTimeout(function () {
+              _this3.setState({ pause: false }, function () {
+                return _this3.drawRotatingAnimation();
+              });
+            }, 10);
+          });
+          break;
+
+        case 'rotatingCircles':
+          this.setState({ pause: true, animationParams: { particles: [] } }, function () {
+            return setTimeout(function () {
+              _this3.setState({ pause: false }, function () {
+                return _this3.drawRotatingCircles();
+              });
+            }, 10);
+          });
+          break;
+
+        case '3dRotation':
+          this.setState({ pause: true, animationParams: { particles: [] } }, function () {
+            return setTimeout(function () {
+              _this3.setState({ pause: false }, function () {
+                return _this3.draw3dRotation();
+              });
+            }, 10);
+          });
+          break;
+
+        default:
+          break;
+      }
+    }
+  }, {
+    key: 'handleStartButton',
+    value: function handleStartButton() {
+      this.changePauseState();
     }
   }, {
     key: 'handleChangeFilterSelect',
     value: function handleChangeFilterSelect(e) {
       this.changeFilter(e.target.value);
+    }
+  }, {
+    key: 'handleChangeSampleSelect',
+    value: function handleChangeSampleSelect(e) {
+      this.changeSample(e.target.value);
     }
   }, {
     key: 'handleFilterButton',
@@ -57669,13 +58068,13 @@ var PaintComponent = function (_Component) {
   }, {
     key: 'handleLoadImageButton',
     value: function handleLoadImageButton() {
-      var _this2 = this;
+      var _this4 = this;
 
       var c = this.state.context;
       var img = new Image();
 
       img.onload = function () {
-        c.drawImage(img, 0, 0, _this2.state.canvasParams.width, _this2.state.canvasParams.height);
+        c.drawImage(img, 0, 0, _this4.state.canvasParams.width, _this4.state.canvasParams.height);
       };
 
       img.src = "/images/tmp.jpg";
@@ -57732,12 +58131,25 @@ var PaintComponent = function (_Component) {
       this.setState({ drawingParams: drawingParams });
     }
   }, {
+    key: 'changeSample',
+    value: function changeSample(val) {
+      var drawingParams = this.state.drawingParams;
+      drawingParams.selectedSample = val;
+
+      this.setState({ drawingParams: drawingParams });
+    }
+  }, {
     key: 'changeColor',
     value: function changeColor(val) {
       var drawingParams = this.state.drawingParams;
       drawingParams.color = val;
 
       this.setState({ drawingParams: drawingParams });
+    }
+  }, {
+    key: 'changePauseState',
+    value: function changePauseState() {
+      this.setState({ pause: !this.state.pause });
     }
   }, {
     key: 'changeTempColor',
@@ -57754,7 +58166,7 @@ var PaintComponent = function (_Component) {
       this.setState({ canvasWrapperParams: canvasWrapperParams, canvasParams: { width: canvasWrapperParams.width, height: canvasWrapperParams.height } });
     }
 
-    //============================================================================================================
+    //==========================================================================================================
 
   }, {
     key: 'componentDidMount',
@@ -57766,12 +58178,16 @@ var PaintComponent = function (_Component) {
       });
     }
 
-    //=======================================================
+    //==========================================================================================================
 
   }, {
     key: 'handleEraseButton',
     value: function handleEraseButton(e) {
-      this.state.context.clearRect(0, 0, this.state.canvasWrapperParams.width, this.state.canvasWrapperParams.height);
+      var _this5 = this;
+
+      this.setState({ pause: true, animationParams: { particles: [] } }, function () {
+        return _this5.state.context.clearRect(0, 0, _this5.state.canvasWrapperParams.width, _this5.state.canvasWrapperParams.height);
+      });
     }
   }, {
     key: '_onMouseDown',
@@ -57809,9 +58225,19 @@ var PaintComponent = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this6 = this;
 
       var filters = this.state.availableFilters.sort(function (a, b) {
+        return a.name.localeCompare(b.name);
+      }).map(function (item, idx) {
+        return _react2.default.createElement(
+          'option',
+          { key: idx, value: item.value },
+          item.name
+        );
+      });
+
+      var samples = this.state.availAbleSamples.sort(function (a, b) {
         return a.name.localeCompare(b.name);
       }).map(function (item, idx) {
         return _react2.default.createElement(
@@ -57827,13 +58253,13 @@ var PaintComponent = function (_Component) {
         _react2.default.createElement(
           'div',
           { ref: function ref(canvasWrapper) {
-              _this3.canvasWrapper = canvasWrapper;
+              _this6.canvasWrapper = canvasWrapper;
             },
             id: "canvasArea" },
           _react2.default.createElement('canvas', { onMouseDown: this._onMouseDown, onMouseUp: this._onMouseUp,
             onMouseMove: this._onMouseMove, onMouseLeave: this._onMouseLeave,
             ref: function ref(canvas) {
-              _this3.canvas = canvas;
+              _this6.canvas = canvas;
             },
             width: this.state.canvasParams.width, height: this.state.canvasParams.height
           })
@@ -57888,17 +58314,32 @@ var PaintComponent = function (_Component) {
             ),
             _react2.default.createElement('hr', { className: "select-disabled" }),
             _react2.default.createElement(
+              _reactBootstrap.FormControl,
+              { className: "rightMenuItem select-disabled", componentClass: 'select',
+                value: this.state.drawingParams.selectedSample, onChange: function onChange(e) {
+                  return _this6.handleChangeSampleSelect(e);
+                } },
+              samples
+            ),
+            _react2.default.createElement(
               _reactBootstrap.Button,
-              { className: "rightMenuItem select-disabled", block: true, onClick: function onClick(e) {
-                  return _this3.handleDrawButton(e);
+              { className: "rightMenuItem select-disabled add-margin-top-10", block: true, onClick: function onClick(e) {
+                  return _this6.handleDrawButton(e);
                 } },
               'Draw Sample'
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.Button,
+              { className: "rightMenuItem select-disabled add-margin-top-10", block: true, onClick: function onClick(e) {
+                  return _this6.handleStartButton(e);
+                }, disabled: this.state.pause },
+              'Stop'
             ),
             _react2.default.createElement('hr', { className: "select-disabled" }),
             _react2.default.createElement(
               _reactBootstrap.Button,
               { className: "rightMenuItem select-disabled", block: true, onClick: function onClick(e) {
-                  return _this3.handleLoadImageButton(e);
+                  return _this6.handleLoadImageButton(e);
                 } },
               'Load Sample Image'
             ),
@@ -57906,7 +58347,7 @@ var PaintComponent = function (_Component) {
             _react2.default.createElement(
               _reactBootstrap.Button,
               { className: "rightMenuItem select-disabled", block: true, onClick: function onClick(e) {
-                  return _this3.handleEraseButton(e);
+                  return _this6.handleEraseButton(e);
                 } },
               'Erase'
             ),
@@ -57915,14 +58356,14 @@ var PaintComponent = function (_Component) {
               _reactBootstrap.FormControl,
               { className: "rightMenuItem select-disabled", componentClass: 'select',
                 value: this.state.drawingParams.selectedFilter, onChange: function onChange(e) {
-                  return _this3.handleChangeFilterSelect(e);
+                  return _this6.handleChangeFilterSelect(e);
                 } },
               filters
             ),
             _react2.default.createElement(
               _reactBootstrap.Button,
-              { id: "execButton", className: "rightMenuItem select-disabled", block: true, onClick: function onClick(e) {
-                  return _this3.handleFilterButton(e);
+              { className: "rightMenuItem select-disabled add-margin-top-10", block: true, onClick: function onClick(e) {
+                  return _this6.handleFilterButton(e);
                 } },
               'Exec'
             )
@@ -57943,7 +58384,7 @@ var PaintComponent = function (_Component) {
                 _react2.default.createElement(_reactBootstrap.FormControl, { id: "colorShowDiv", readOnly: true,
                   style: { backgroundColor: this.state.drawingParams.color },
                   onClick: function onClick(e) {
-                    return _this3.handleShowColorPickerRequest(e);
+                    return _this6.handleShowColorPickerRequest(e);
                   } }),
                 _react2.default.createElement(_reactBootstrap.FormControl, { value: this.state.drawingParams.color, onChange: function onChange() {}, readOnly: true })
               )
@@ -57955,7 +58396,7 @@ var PaintComponent = function (_Component) {
                 'div',
                 { id: "huePickerWrapper" },
                 _react2.default.createElement(_reactColor.HuePicker, { color: this.state.drawingParams.color, onChangeComplete: function onChangeComplete(color, e) {
-                    return _this3.handleHuePickerChange(color, e);
+                    return _this6.handleHuePickerChange(color, e);
                   } })
               )
             ),
@@ -57977,13 +58418,13 @@ var PaintComponent = function (_Component) {
           { show: this.state.showColorPicker },
           _react2.default.createElement(_reactColor.PhotoshopPicker, { color: this.state.drawingParams.newColor,
             onChangeComplete: function onChangeComplete(color, e) {
-              return _this3.handleColorPickerChangingColor(color, e);
+              return _this6.handleColorPickerChangingColor(color, e);
             },
             onCancel: function onCancel() {
-              return _this3.handleHideColorPickerRequest();
+              return _this6.handleHideColorPickerRequest();
             },
             onAccept: function onAccept(color, e) {
-              return _this3.handleColorPickerSelectColor(color, e);
+              return _this6.handleColorPickerSelectColor(color, e);
             }, id: "modalPicker" })
         )
       );

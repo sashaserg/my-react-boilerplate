@@ -38,18 +38,6 @@ function getTintedColor(color, v)
   return "#" + r + g + b;
 }
 
-function rotateCoordinates(pX, pY, originX, originY, degree)
-{
-  let res = {x:0,y:0};
-
-  let x = pX - originX;
-  let y = pY - originY;
-
-  res.x = originX + x * Math.cos(degree*Math.PI/180) - y * Math.sin(degree*Math.PI/180);
-  res.y = originY + x * Math.sin(degree*Math.PI/180) + y * Math.cos(degree*Math.PI/180);
-
-  return res;
-}
 //=============================================
 
 class PaintComponent extends Component
@@ -569,20 +557,28 @@ class PaintComponent extends Component
     ctx.strokeStyle = this.state.drawingParams.color;
     ctx.fillStyle = this.state.drawingParams.color;
     ctx.lineWidth = this.state.drawingParams.lineWidth;
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
     ctx.shadowColor =  getTintedColor(this.state.drawingParams.color, 25);
 
-    const startPos = ((Date.now()) / 2000)*Math.PI;
+    const startPos = [((Date.now() % 2001) / 1000)*Math.PI, ((Date.now() % 4000) / 2000)*Math.PI,  ((Date.now() % 1500) / 750)*Math.PI ] ;
     const startPosReversed = [((2001 - Date.now() % 2001) / 1000)*Math.PI, ((1300 - Date.now() % 1300) / 650)*Math.PI,  ((1500 - Date.now() % 1500) / 750)*Math.PI ] ;
 
     const center = {x: this.state.canvasParams.width/2, y: this.state.canvasParams.height/2};
-    const radius = 250;
-    const radiusVolatile = 25 + Math.abs(10 * Math.sin( ((Date.now()/1500)%2)*Math.PI));
+    const radius = 50;
+    const radiusVolatile = 40 + Math.abs(10 * Math.sin( ((Date.now()/1500)%2)*Math.PI));
+
+    const circlesRotationRadius = 250;
+    const linesRotationRadius = 150;
 
     //=====================================================================================
 
     ctx.clearRect(0, 0, this.state.canvasParams.width, this.state.canvasParams.height);
 
     //======================================================================================
+
+
 
     function drawCircle(x, y, r, s, e)
     {
@@ -601,42 +597,29 @@ class PaintComponent extends Component
       ctx.closePath();
     }
 
-    //ctx.fillStyle = "black";
-    //ctx.fillRect(0, 0, this.state.canvasParams.width, this.state.canvasParams.height);
-    //ctx.fillStyle = "white";
-    //drawCircle( center.x,  center.y, radius, 0, 2*Math.PI);
-    drawCircle( center.x,  center.y, radiusVolatile*0.95, 0, 2*Math.PI);
+    drawCircle( center.x + circlesRotationRadius*Math.cos(startPos[1]), center.y + circlesRotationRadius*Math.sin(startPos[1]), radiusVolatile, 0, 2*Math.PI);
+    drawCircle( center.x - circlesRotationRadius*Math.cos(startPos[1]), center.y - circlesRotationRadius*Math.sin(startPos[1]), radiusVolatile, 0, 2*Math.PI);
+    drawCircle( center.x,  center.y, radiusVolatile*0.1, 0, 2*Math.PI);
 
+    connectLine(center.x + linesRotationRadius*Math.cos(startPos[1]), center.y + linesRotationRadius*Math.sin(startPos[1]),
+      center.x - linesRotationRadius*Math.cos(startPos[1]), center.y - linesRotationRadius*Math.sin(startPos[1]));
 
-    ctx.lineWidth = 20;
-    //connectLine(center.x + 200*Math.cos(startPos), center.y + 200*Math.sin(startPos),
-    //  center.x - 200*Math.cos(startPos), center.y - 200*Math.sin(startPos));
+    connectLine(center.x, center.y,
+      center.x - linesRotationRadius*Math.cos(startPos[1]) - Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y - linesRotationRadius*Math.sin(startPos[1]) + (radiusVolatile)*Math.cos(startPos[1]));
+    connectLine(center.x, center.y,
+      center.x - linesRotationRadius*Math.cos(startPos[1]) + Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y - linesRotationRadius*Math.sin(startPos[1]) - (radiusVolatile)*Math.cos(startPos[1]));
+    connectLine(center.x - linesRotationRadius*Math.cos(startPos[1]) - Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y - linesRotationRadius*Math.sin(startPos[1]) + (radiusVolatile)*Math.cos(startPos[1]),
+      center.x - linesRotationRadius*Math.cos(startPos[1]) + Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y - linesRotationRadius*Math.sin(startPos[1]) - (radiusVolatile)*Math.cos(startPos[1]));
 
-    //==================================================================================================================
+    connectLine(center.x, center.y,
+      center.x + linesRotationRadius*Math.cos(startPos[1]) - Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y + linesRotationRadius*Math.sin(startPos[1]) + (radiusVolatile)*Math.cos(startPos[1]));
+    connectLine(center.x, center.y,
+      center.x + linesRotationRadius*Math.cos(startPos[1]) + Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y + linesRotationRadius*Math.sin(startPos[1]) - (radiusVolatile)*Math.cos(startPos[1]));
+    connectLine(center.x + linesRotationRadius*Math.cos(startPos[1]) + Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y + linesRotationRadius*Math.sin(startPos[1]) - (radiusVolatile)*Math.cos(startPos[1]),
+      center.x + linesRotationRadius*Math.cos(startPos[1]) - Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y + linesRotationRadius*Math.sin(startPos[1]) + (radiusVolatile)*Math.cos(startPos[1])
+    );
 
-    connectLine(center.x + 190*Math.cos(startPos), center.y + 190*Math.sin(startPos),
-      center.x + 210*Math.cos(startPos+Math.PI/6), center.y + 210*Math.sin(startPos+Math.PI/6));
-
-    connectLine(center.x - 190*Math.cos(startPos), center.y - 190*Math.sin(startPos),
-      center.x - 210*Math.cos(startPos+Math.PI/6), center.y - 210*Math.sin(startPos+Math.PI/6));
-
-    //==================================================================================================================
-
-    //connectLine(center.x + 200*Math.cos(startPos+Math.PI/2), center.y + 200*Math.sin(startPos+Math.PI/2),
-    //  center.x - 200*Math.cos(startPos+Math.PI/2), center.y - 200*Math.sin(startPos+Math.PI/2));
-
-    //==================================================================================================================
-
-    connectLine(center.x + 190*Math.cos(startPos+Math.PI/2), center.y + 190*Math.sin(startPos+Math.PI/2),
-      center.x + 210*Math.cos(startPos+Math.PI/6+Math.PI/2), center.y + 210*Math.sin(startPos+Math.PI/6+Math.PI/2));
-
-    connectLine(center.x - 190*Math.cos(startPos+Math.PI/2), center.y - 190*Math.sin(startPos+Math.PI/2),
-      center.x + 210*Math.cos(startPos+Math.PI/6+Math.PI/2), center.y + 210*Math.sin(startPos+Math.PI/6+Math.PI/2));
-
-    //==================================================================================================================
-
-
-    //==================================================================================================================
+    //=====================================================================================
 
     ctx.shadowBlur = 0;
     ctx.shadowOffsetX = 0;
