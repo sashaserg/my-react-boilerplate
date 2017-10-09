@@ -9,10 +9,6 @@ class HomePage extends Component
 	constructor(props)
 	{
 		super(props);
-
-		this.state = {
-			propsArray: [this.props]
-		}
 	}
 
 	componentDidMount()
@@ -25,7 +21,7 @@ class HomePage extends Component
 	{
 		return (
 			<div>
-				HomePage
+				<h1>Live edit now available!</h1>
 			</div>
 		)
 	}

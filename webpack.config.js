@@ -1,12 +1,61 @@
-var webpack = require('webpack');
-var path = require('path');
+const webpack = require('webpack');
+const path = require('path');
+
+const env = process.env.NODE_ENV;
+
+//================================================================
+
+let plugins =
+	[
+		new webpack.DefinePlugin({
+			__DEV__: env !== 'production',
+			'process.env':
+        {
+				  'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+			  }
+		}),
+
+		new webpack.NoEmitOnErrorsPlugin()
+	];
+
+if (env === 'production')
+	{
+		plugins.push(new webpack.optimize.UglifyJsPlugin({
+			beautify: false,
+			comments: false,
+			compress: {
+				dead_code: true,
+				booleans: true,
+				loops: true,
+				unused: true,
+				warnings: false,
+				drop_console: true
+			}
+		}));
+	}
+else
+	{
+		plugins.push(new webpack.HotModuleReplacementPlugin());
+	}
+
+const entryPoint =
+  (env === "production")
+  ?
+    {
+      app: './client/app.js'
+    }
+  :
+    [
+      'webpack-hot-middleware/client',
+      './client/app.js'
+    ]
+;
+
+//================================================================
 
 module.exports =
 {
-	entry:
-		{
-			app: './client/app.js'
-		},
+	entry: entryPoint,
 
 	output:
 		{
@@ -14,7 +63,13 @@ module.exports =
 			sourceMapFilename: 'server/public/build/bundle.map'
 		},
 
-	devtool: '#source-map',
+  devtool: env === 'production' ? 'source-map' : 'eval',
+  plugins: plugins,
+
+  devServer:
+    {
+      hot: true
+    },
 
 	module:
 		{

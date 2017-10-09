@@ -3,7 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "babel-node ./server/bin/www"
+    "start": "NODE_ENV=production babel-node ./server/bin/www",
+    "dev": " NODE_ENV=development babel-node ./server/bin/www",
+    "build:webpack": "NODE_ENV=production webpack --progress --colors --config ./webpack.config.js",
+    "build:webpack:dev": "NODE_ENV=development webpack --progress --colors --config ./webpack.config.js",
+    "build:dev": "npm run build:webpack:dev",
+    "build": "npm run build:webpack"
   },
   "dependencies": {
     "bcrypt": "^1.0.2",
@@ -11,6 +16,7 @@
     "connect": "^3.6.3",
     "cookie-parser": "~1.4.3",
     "css-loader": "^0.28.7",
+    "destroy": "^1.0.4",
     "ejs": "~2.5.6",
     "express": "~4.15.2",
     "express-session": "^1.15.5",
@@ -56,7 +62,10 @@
     "node-sass": "^4.5.3",
     "redux-devtools-extension": "^2.13.2",
     "sass-loader": "^6.0.6",
+    "uglifyjs-webpack-plugin": "^0.4.6",
     "webpack": "^3.5.5",
-    "webpack-dev-server": "^2.7.1"
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-dev-server": "^2.9.1",
+    "webpack-hot-middleware": "^2.19.1"
   }
 }
