@@ -30,12 +30,100 @@ function getTintedColor(color, v)
   let g = Math.abs(((rgb >> 8) & 0xFF)+v); if (g>255) g=g-(g-255);
   let b = Math.abs((rgb & 0xFF)+v); if (b>255) b=b-(b-255);
   r = Number(r < 0 || isNaN(r)) ? 0 : ((r > 255) ? 255 : r).toString(16);
-  if (r.length === 1) r = '0' + r;
+  if (r.length === 1)
+    r = '0' + r;
   g = Number(g < 0 || isNaN(g)) ? 0 : ((g > 255) ? 255 : g).toString(16);
-  if (g.length === 1) g = '0' + g;
+  if (g.length === 1)
+    g = '0' + g;
   b = Number(b < 0 || isNaN(b)) ? 0 : ((b > 255) ? 255 : b).toString(16);
-  if (b.length === 1) b = '0' + b;
+  if (b.length === 1)
+    b = '0' + b;
   return "#" + r + g + b;
+}
+
+function grayScaleCanvas(context, width, height)
+{
+  const imgData = context.getImageData(0, 0, width, height);
+  let pixels  = imgData.data;
+  for (let i = 0, n = pixels.length; i < n; i += 4) {
+    const grayscale = pixels[i] * .3 + pixels[i+1] * .59 + pixels[i+2] * .11;
+    pixels[i  ] = grayscale;        // red
+    pixels[i+1] = grayscale;        // green
+    pixels[i+2] = grayscale;        // blue
+  }
+
+  context.putImageData(imgData, 0, 0);
+}
+
+function centerImage(img)
+{
+  let meanX = 0;
+  let meanY = 0;
+  let rows = img.length;
+  let columns = img[0].length;
+  let sumPixels = 0;
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < columns; x++) {
+      let pixel = (1 - img[y][x]);
+      sumPixels += pixel;
+      meanY += y * pixel;
+      meanX += x * pixel;
+    }
+  }
+  meanX /= sumPixels;
+  meanY /= sumPixels;
+
+  let dY = Math.round(rows/2 - meanY);
+  let dX = Math.round(columns/2 - meanX);
+  return {transX: dX, transY: dY};
+}
+
+function imageDataToGrayscale(imgData)
+{
+  let grayscaleImg = [];
+  for (let y = 0; y < imgData.height; y++)
+  {
+    grayscaleImg[y]=[];
+    for (let x = 0; x < imgData.width; x++)
+    {
+      let offset = y * 4 * imgData.width + 4 * x;
+      let alpha = imgData.data[offset+3];
+
+      if (alpha === 0)
+      {
+        imgData.data[offset] = 255;
+        imgData.data[offset+1] = 255;
+        imgData.data[offset+2] = 255;
+      }
+
+      imgData.data[offset+3] = 255;
+
+      grayscaleImg[y][x] = imgData.data[y*4*imgData.width + x*4 + 0] / 255;
+    }
+  }
+  return grayscaleImg;
+}
+
+
+function getBoundingRectangle(img, threshold)
+{
+  let rows = img.length;
+  let columns = img[0].length;
+  let minX=columns;
+  let minY=rows;
+  let maxX=-1;
+  let maxY=-1;
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < columns; x++) {
+      if (img[y][x] < threshold) {
+        if (minX > x) minX = x;
+        if (maxX < x) maxX = x;
+        if (minY > y) minY = y;
+        if (maxY < y) maxY = y;
+      }
+    }
+  }
+  return { minY: minY, minX: minX, maxY: maxY, maxX: maxX};
 }
 
 //=============================================
@@ -638,6 +726,52 @@ class PaintComponent extends Component
 
   //=============================================================
 
+  normalizeImage()
+  {
+    const ctx = this.state.context;
+
+    const grayscaleImage = imageDataToGrayscale(ctx.getImageData(0, 0, this.state.canvasParams.width, this.state.canvasParams.height));
+
+    let boundingRectangle = getBoundingRectangle(grayscaleImage, 0.01);
+    let trans = centerImage(grayscaleImage);
+
+    let canvasCopy = document.createElement("canvas");
+    canvasCopy.width = this.state.canvasParams.width;
+    canvasCopy.height = this.state.canvasParams.height;
+    let copyCtx = canvasCopy.getContext("2d");
+    let brW = boundingRectangle.maxX+1-boundingRectangle.minX;
+    let brH = boundingRectangle.maxY+1-boundingRectangle.minY;
+    let scaling = (this.state.canvasParams.height/1.2) / (brW>brH?brW:brH);
+
+
+    // scale
+    copyCtx.translate(this.state.canvasParams.width/2, this.state.canvasParams.height/2);
+    copyCtx.scale(scaling, scaling);
+    copyCtx.translate(-this.state.canvasParams.width/2, -this.state.canvasParams.height/2);
+    // translate to center of mass
+    copyCtx.translate(trans.transX, trans.transY);
+
+    copyCtx.drawImage(ctx.canvas, 0, 0);
+
+    // now bin image into 10x10 blocks (giving a 28x28 image)
+    grayScaleCanvas(copyCtx, this.state.canvasParams.width, this.state.canvasParams.height)
+
+
+    ctx.clearRect(0, 0,  this.state.canvasParams.width, this.state.canvasParams.height);
+    ctx.drawImage(copyCtx.canvas, 0, 0);
+
+    //=-=-==--==--==-=-=-=--=--==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-===-=-=-=-=-=--=-=-=-===-=--=
+
+  }
+
+  recognizeNumber()
+  {
+    this.normalizeImage();
+    // TO DO
+  }
+
+  //=============================================================
+
   handleDrawButton()
   {
     switch(this.state.drawingParams.selectedSample)
@@ -846,16 +980,113 @@ class PaintComponent extends Component
 		}
 	}
 
-	render ()
-	{
+	//==============================================================================================================
+
+  renderModalColorPicker()
+  {
+    return (
+      <Modal show={this.state.showColorPicker}>
+        <PhotoshopPicker color={this.state.drawingParams.newColor}
+                         onChangeComplete={ (color, e) => this.handleColorPickerChangingColor(color, e) }
+                         onCancel={()=>this.handleHideColorPickerRequest()}
+                         onAccept={(color, e) => this.handleColorPickerSelectColor(color, e)}   id={"modalPicker"}/>
+      </Modal>
+    )
+  }
+
+  renderBottomInstrumentsArea()
+  {
+    return (
+      <Clearfix>
+
+      <Col sm={3} xs={3} style={{textAlign:"left"}}>
+        <Form inline>
+          <FormControl id={"colorShowDiv"}  readOnly={true}
+                       style={{backgroundColor:this.state.drawingParams.color}}
+                       onClick={(e) => this.handleShowColorPickerRequest(e)}/>
+          <FormControl value={this.state.drawingParams.color} onChange={()=>{}} readOnly={true} />
+        </Form>
+      </Col>
+
+      <Col sm={4} xs={4}>
+        <div id={"huePickerWrapper"}>
+          <HuePicker color={this.state.drawingParams.color} onChangeComplete={ (color, e) => this.handleHuePickerChange(color, e) }/>
+        </div>
+      </Col>
+
+      <Col sm={2} xs={2} smOffset={1} xsOffset={1}>
+        <FormControl readOnly={true}/>
+      </Col>
+
+      <Col sm={2} xs={2}>
+        <Button onClick={() => this.recognizeNumber()} block>Recognize</Button>
+      </Col>
+
+    </Clearfix>
+    )
+  }
+
+  renderRightInstrumentsArea()
+  {
     const filters = this.state.availableFilters
-                    .sort((a,b)=>{return a.name.localeCompare(b.name) })
-                    .map( (item, idx) => {return( <option key={idx} value={item.value}>{item.name}</option>)});
+      .sort((a,b)=>{return a.name.localeCompare(b.name) })
+      .map( (item, idx) => {return( <option key={idx} value={item.value}>{item.name}</option>)});
 
     const samples = this.state.availAbleSamples
-                    .sort((a,b)=>{return a.name.localeCompare(b.name) })
-                    .map( (item, idx) => {return( <option key={idx} value={item.value}>{item.name}</option>)});
+      .sort((a,b)=>{return a.name.localeCompare(b.name) })
+      .map( (item, idx) => {return( <option key={idx} value={item.value}>{item.name}</option>)});
 
+    return (
+      <div>
+
+        <div id={"mouseCoordsContainer"}>
+          <span className={"select-disabled"}> x: {" " + this.state.coords.x}  </span> <br/>
+          <span className={"select-disabled"}> y: {" " + this.state.coords.y}  </span> <br/>
+          <br className={"select-disabled"}/>
+          <span className={"select-disabled"}> x offset: {" " + this.state.canvasWrapperParams.left}  </span> <br/>
+          <span className={"select-disabled"}> y offset: {" " + this.state.canvasWrapperParams.top}  </span> <br/>
+          <br className={"select-disabled"}/>
+        </div>
+
+        <hr className={"select-disabled"}/>
+        <FormControl  className={"rightMenuItem select-disabled"} componentClass="select"
+                      value={this.state.drawingParams.selectedSample} onChange={(e) => this.handleChangeSampleSelect(e)}>
+          {samples}
+        </FormControl>
+        <Button className={"rightMenuItem select-disabled add-margin-top-10"} block onClick={(e) => this.handleDrawButton(e)}>
+          Draw Sample
+        </Button>
+
+        <Button className={"rightMenuItem select-disabled add-margin-top-10"} block onClick={(e) => this.handleStartButton(e)} disabled={this.state.pause}>
+          Stop
+        </Button>
+
+        <hr className={"select-disabled"}/>
+        <Button className={"rightMenuItem select-disabled"} block onClick={(e) => this.handleLoadImageButton(e)}>
+          Load Sample Image
+        </Button>
+
+        <hr className={"select-disabled"}/>
+        <Button className={"rightMenuItem select-disabled"} block onClick={(e) => this.handleEraseButton(e)}>
+          Erase
+        </Button>
+
+        <hr className={"select-disabled"}/>
+        <FormControl  className={"rightMenuItem select-disabled"} componentClass="select"
+                      value={this.state.drawingParams.selectedFilter} onChange={(e) => this.handleChangeFilterSelect(e)}>
+          {filters}
+        </FormControl>
+
+        <Button className={"rightMenuItem select-disabled add-margin-top-10"}  block onClick={(e) => this.handleFilterButton(e)}>
+          Exec
+        </Button>
+
+      </div>
+    )
+  }
+
+	render ()
+	{
 		return (
 
 			<div id={"paintComponent"}>
@@ -869,92 +1100,14 @@ class PaintComponent extends Component
         </div>
 
 				<div id={"instrumentsAreaRight"}>
-					<div>
-
-            <div id={"mouseCoordsContainer"}>
-              <span className={"select-disabled"}> x: {" " + this.state.coords.x}  </span> <br/>
-              <span className={"select-disabled"}> y: {" " + this.state.coords.y}  </span> <br/>
-              <br className={"select-disabled"}/>
-              <span className={"select-disabled"}> x offset: {" " + this.state.canvasWrapperParams.left}  </span> <br/>
-              <span className={"select-disabled"}> y offset: {" " + this.state.canvasWrapperParams.top}  </span> <br/>
-              <br className={"select-disabled"}/>
-            </div>
-
-            <hr className={"select-disabled"}/>
-            <FormControl  className={"rightMenuItem select-disabled"} componentClass="select"
-                          value={this.state.drawingParams.selectedSample} onChange={(e) => this.handleChangeSampleSelect(e)}>
-              {samples}
-            </FormControl>
-						<Button className={"rightMenuItem select-disabled add-margin-top-10"} block onClick={(e) => this.handleDrawButton(e)}>
-              Draw Sample
-            </Button>
-
-						<Button className={"rightMenuItem select-disabled add-margin-top-10"} block onClick={(e) => this.handleStartButton(e)} disabled={this.state.pause}>
-              Stop
-            </Button>
-
-            <hr className={"select-disabled"}/>
-            <Button className={"rightMenuItem select-disabled"} block onClick={(e) => this.handleLoadImageButton(e)}>
-              Load Sample Image
-            </Button>
-
-            <hr className={"select-disabled"}/>
-            <Button className={"rightMenuItem select-disabled"} block onClick={(e) => this.handleEraseButton(e)}>
-              Erase
-            </Button>
-
-            <hr className={"select-disabled"}/>
-            <FormControl  className={"rightMenuItem select-disabled"} componentClass="select"
-                          value={this.state.drawingParams.selectedFilter} onChange={(e) => this.handleChangeFilterSelect(e)}>
-              {filters}
-            </FormControl>
-
-            <Button className={"rightMenuItem select-disabled add-margin-top-10"}  block onClick={(e) => this.handleFilterButton(e)}>
-              Exec
-            </Button>
-
-					</div>
+          {this.renderRightInstrumentsArea()}
 				</div>
 
 				<div id={"instrumentsAreaBottom"}>
-
-          <Clearfix>
-
-            <Col sm={3} xs={3} style={{textAlign:"left"}}>
-              <Form inline>
-                <FormControl id={"colorShowDiv"}  readOnly={true}
-                             style={{backgroundColor:this.state.drawingParams.color}}
-                             onClick={(e) => this.handleShowColorPickerRequest(e)}/>
-                <FormControl value={this.state.drawingParams.color} onChange={()=>{}} readOnly={true} />
-              </Form>
-            </Col>
-
-            <Col sm={4} xs={4}>
-              <div id={"huePickerWrapper"}>
-                <HuePicker color={this.state.drawingParams.color} onChangeComplete={ (color, e) => this.handleHuePickerChange(color, e) }/>
-              </div>
-            </Col>
-
-            <Col sm={3} xs={3}>
-              <Slider
-                value={0}
-                min={0}
-                max={10}
-                ticks
-                markers={[{value: 3, label: 'Three'}, {value: 8, label: 'Eight'}]}
-                onChange={()=>{}}/>
-            </Col>
-
-          </Clearfix>
-
+          {this.renderBottomInstrumentsArea()}
         </div>
 
-        <Modal show={this.state.showColorPicker}>
-          <PhotoshopPicker color={this.state.drawingParams.newColor}
-            onChangeComplete={ (color, e) => this.handleColorPickerChangingColor(color, e) }
-            onCancel={()=>this.handleHideColorPickerRequest()}
-            onAccept={(color, e) => this.handleColorPickerSelectColor(color, e)}   id={"modalPicker"}/>
-        </Modal>
+        {this.renderModalColorPicker()}
 
       </div>
 		)
