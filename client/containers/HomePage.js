@@ -12,16 +12,16 @@ class HomePage extends Component
 	constructor(props)
 	{
 		super(props);
+	}
 
-		this.state =
-			{
-				numbers: []
-			};
+	componentDidMount()
+	{
+		this.props.testActions.testAction();
+		this.props.testActions.testActionAsync();
 	}
 
 	render()
 	{
-
 		return (
 			<Grid fluid={true}>
 				<Row className={"text-center"}>

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var app = require('../app');
-var debug = require('debug')('react-redux-bolerplate:server');
+var debug = require('debug')('react-redux-boilerplate:server');
 var http = require('http');
 
 var port = normalizePort(process.env.PORT || '3000');

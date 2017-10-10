@@ -8,8 +8,23 @@ import bodyParser from 'body-parser';
 import api from './routes/api';
 import index from './routes/index';
 
+import webpack from 'webpack';
+import webpackConfig from '../webpack.config';
+const compiler = webpack(webpackConfig);
 
 const app = express();
+
+//================ Hot reload =========================
+
+app.use(require('webpack-dev-middleware')(compiler,
+  {
+    publicPath: webpackConfig.output.publicPath
+  }));
+
+app.use(require('webpack-hot-middleware')(compiler));
+
+//======================================================
+
 
 app.set('views', path.join(__dirname ,'views'));
 app.set('view engine', 'ejs');

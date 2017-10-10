@@ -10,6 +10,29 @@ const store = configureStore();
 
 import Routes from './routes'
 
+// ================= check mode fn block =========================
+
+{
+	if( process.env.NODE_ENV !== 'production' )
+	{
+    console.log('Looks like we are in development mode!');
+  }
+  else
+	{
+	  // We are in production mode.
+	}
+}
+
+if (module.hot)
+{
+  console.log("Reloading components...");
+
+  module.hot.accept( () => {
+    console.log('Accepting the updated printMe module!');
+  })
+}
+
+//===============================================================
 
 class App extends Component
 {
@@ -19,9 +42,7 @@ class App extends Component
 
 			<Provider store={store}>
 				<ConnectedRouter history={history}>
-
 							<Routes/>
-
 				</ConnectedRouter>
 			</Provider>
 
