@@ -34,23 +34,13 @@ if (module.hot)
 
 //===============================================================
 
-class App extends Component
-{
-	render()
-	{
-		return (
-
-			<Provider store={store}>
-				<ConnectedRouter history={history}>
-							<Routes/>
-				</ConnectedRouter>
-			</Provider>
-
-		);
-	}
-}
-
 render(
-	<App/>,
+
+	<Provider store={store}>
+		<ConnectedRouter history={history}>
+			<Routes/>
+		</ConnectedRouter>
+	</Provider>,
+
 	document.getElementById('root')
 );

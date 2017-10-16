@@ -6,13 +6,10 @@ import { routerMiddleware } from 'react-router-redux';
 import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction';
 
 import rootReducer from '../reducers';
-
-
 export const history = createHistory();
 
-const composeEnhancers = composeWithDevTools({
-  // options like actionSanitizer, stateSanitizer
-});
+const composeEnhancers = composeWithDevTools({/* options like actionSanitizer, stateSanitizer [can be found on dev-tools page] */});
+
 
 function configureStore(initialState)
 {
@@ -23,9 +20,9 @@ function configureStore(initialState)
       reactRouterMiddleware,
     ];
 
-
   return createStore(rootReducer, initialState,
     composeEnhancers( applyMiddleware(...middlewares  )) );
 }
+
 
 export default configureStore;

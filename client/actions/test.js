@@ -2,7 +2,6 @@ import { createActionAsync } from 'redux-act-async';
 
 const actions =
 	{
-
 		testAction: (() => {
 			function testAction(payload) {
 				return {
@@ -18,8 +17,6 @@ const actions =
 		testActionAsync: createActionAsync('TEST_ACTION_ASYNC', () => {
 			return (Promise.resolve()).then( () => { return {field:"field"} } );
 		})
-
 	};
 
-
-	export default actions;
+export default actions;
