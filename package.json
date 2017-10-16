@@ -11,6 +11,7 @@
     "build": "npm run build:webpack"
   },
   "dependencies": {
+    "axios": "^0.16.2",
     "bcrypt": "^1.0.2",
     "body-parser": "~1.17.1",
     "connect": "^3.6.3",
@@ -46,6 +47,7 @@
     "redux-immutable-state-invariant": "^2.0.0",
     "redux-thunk": "^2.2.0",
     "serve-favicon": "~2.4.2",
+    "socket.io": "^2.0.3",
     "store": "^2.0.12",
     "style-loader": "^0.18.2",
     "universal-cookie-express": "^2.0.6"
