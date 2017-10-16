@@ -14,7 +14,6 @@ class HomePage extends Component
 
     this.state =
       {
-        response: false,
         inputText: "",
 
         socketOptions:
