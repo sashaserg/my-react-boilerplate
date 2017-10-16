@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import socketIOClient from "socket.io-client";
 
 import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux';
@@ -14,22 +13,13 @@ class HomePage extends Component
 
     this.state =
       {
-        response: false,
-        inputText: "",
-
-        socketOptions:
-          {
-            endpoint: "http://127.0.0.1:3000",
-            socket: null
-          }
-      };
-
-    this.bindSocket = this.bindSocket.bind(this);
+        inputText: ""
+      }
   }
 
   componentWillMount()
   {
-    this.bindSocket();
+    this.setState({inputText:this.props.test.message});
   }
 
 	componentDidMount()
@@ -38,32 +28,18 @@ class HomePage extends Component
 		this.props.testActions.testActionAsync();
 	}
 
-	//=============================================================================
-
-  sendSocketMessage(e)
+	componentWillUpdate(nextProps, nextState)
   {
-    this.state.socket.emit('sendMessage', this.state.inputText)
+    if( this.props.test.message !== nextProps.test.message )
+    {
+      this.setState({inputText: nextProps.test.message})
+    }
   }
 
-  handleInputChange(e)
+  shouldComponentUpdate(nextProps, nextState)
   {
-    this.setState({inputText:e.target.value});
-  }
-
-  handleInputDataRenew(data)
-  {
-    console.log(`Received update from the server: ${data}`);
-    this.setState({inputText: data});
-  }
-
-	bindSocket()
-  {
-    const { endpoint } = this.state;
-    const socket = socketIOClient(endpoint);
-
-    socket.on("renewMessageText", data => this.handleInputDataRenew(data));
-
-    this.setState({socket:socket}, console.log("Socket successfully bound."));
+    return ( nextProps.test.message !== this.state.inputText )
+      || nextState.inputText !== this.state.inputText
   }
 
 	//==============================================================================
@@ -72,12 +48,10 @@ class HomePage extends Component
   {
     return (
      <div>
-       <input value={this.state.inputText}
-              onChange={ (e) => { this.handleInputChange(e) } } />
-       <br/>
-       <button onClick={ (e) => { this.sendSocketMessage(e) } }>
-         Send
-       </button>
+      <input value={this.state.inputText} onChange={ (e) => { this.setState({inputText:e.target.value})} }/>
+      <button onClick={ (e) => {this.props.testActions.sendTextData(this.state.inputText)} }>
+        Send
+      </button>
      </div>
     );
   }

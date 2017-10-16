@@ -18,12 +18,16 @@ let message = "default";
 
 io.on("connection", socket =>
 {
-  socket.emit("renewMessageText", message);
+  socket.emit('action', {type:'RENEW_MESSAGE', payload: message});
 
-  socket.on('sendMessage', function(msg)
+  socket.on('action', function(action)
   {
-    message = msg;
-    socket.broadcast.emit("renewMessageText", message);
+    if( action.type === 'server/SEND_MESSAGE')
+    {
+      message = action.payload;
+      socket.broadcast.emit('action', {type:'RENEW_MESSAGE', payload: message});
+    }
+
   })
 });
 

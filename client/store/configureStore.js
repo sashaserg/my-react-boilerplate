@@ -7,6 +7,12 @@ import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProductio
 
 import rootReducer from '../reducers';
 
+import createSocketIoMiddleware from 'redux-socket.io';
+import io from 'socket.io-client';
+
+const serverURL = 'http://localhost:3000';
+let socket = io( serverURL );
+let socketIoMiddleware = createSocketIoMiddleware(socket, "server/");   //actions name beginning for redirect (middleware)
 
 export const history = createHistory();
 
@@ -21,6 +27,7 @@ function configureStore(initialState)
     [
       thunk,
       reactRouterMiddleware,
+      socketIoMiddleware
     ];
 
 

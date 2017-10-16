@@ -6,10 +6,16 @@ import testActions from '../actions/test'
 const initialState = fromJS({
 	arr: [],
 	obj: {field:"null"},
+	message: "",
 	loading: false
 });
 
 export default createReducer({
+
+  ['RENEW_MESSAGE']: (state, payload) =>
+	{
+		return state.set('message', payload);
+  },
 
 	[testActions.testAction.type]: (state, payload) => {
 		return state.set('arr', fromJS(["tmp", "tmp", "tmp"]));

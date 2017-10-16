@@ -2,6 +2,17 @@ import { createActionAsync } from 'redux-act-async';
 
 const actions =
 	{
+		sendTextData: (() => {
+			function testAction(payload) {
+				return {
+					type: testAction.type,
+					payload: payload
+				};
+			}
+
+			testAction.type = 'server/SEND_MESSAGE';
+			return testAction;
+		})(),
 
 		testAction: (() => {
 			function testAction(payload) {
