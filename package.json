@@ -14,8 +14,8 @@
     "wnd-dev": "set NODE_ENV='development' && node ./server/bin/www",
     "wnd-build:webpack": "set NODE_ENV='production' && webpack --progress --colors --config ./webpack.config.js",
     "wnd-build:webpack:dev": "set NODE_ENV='development' && webpack --progress --colors --config ./webpack.config.js",
-    "wnd-build:dev": "npm run build:webpack:dev",
-    "wnd-build": "npm run build:webpack"
+    "wnd-build:dev": "npm run wnd-build:webpack:dev",
+    "wnd-build": "npm run wnd-build:webpack"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
