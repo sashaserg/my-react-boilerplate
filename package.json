@@ -8,7 +8,14 @@
     "build:webpack": "NODE_ENV=production webpack --progress --colors --config ./webpack.config.js",
     "build:webpack:dev": "NODE_ENV=development webpack --progress --colors --config ./webpack.config.js",
     "build:dev": "npm run build:webpack:dev",
-    "build": "npm run build:webpack"
+    "build": "npm run build:webpack",
+
+    "wnd-start": "set NODE_ENV='production' && node ./server/bin/www",
+    "wnd-dev": "set NODE_ENV='development' && node ./server/bin/www",
+    "wnd-build:webpack": "set NODE_ENV='production' && webpack --progress --colors --config ./webpack.config.js",
+    "wnd-build:webpack:dev": "set NODE_ENV='development' && webpack --progress --colors --config ./webpack.config.js",
+    "wnd-build:dev": "npm run build:webpack:dev",
+    "wnd-build": "npm run build:webpack"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
