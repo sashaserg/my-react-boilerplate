@@ -23,7 +23,7 @@
     > $ npm run wnd-start
 
 
-    // dev build with hot reload and dev-tools
+    // dev build with hot reload and dev-tools (5 times larger files, easier to debug)
     
     @linux
     > $ npm run build:dev
