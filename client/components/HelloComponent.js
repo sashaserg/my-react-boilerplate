@@ -24,6 +24,12 @@ class HelloComponent extends Component
         <br/>
         {JSON.stringify(this.props.parentProps)}
 
+        <br/>
+
+        Its props:
+        <br/>
+        {JSON.stringify(this.props)}
+
       </dev>
     )
   }
