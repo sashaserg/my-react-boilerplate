@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
 import { ConnectedRouter } from 'react-router-redux';
 
@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import './styles/global.scss';
 const store = configureStore();
 
-import Routes from './routes'
+import Routes from './routes';
 
 // ================= check mode fn block =========================
 
@@ -27,7 +27,8 @@ if (module.hot)
 {
   console.log("Reloading components...");
 
-  module.hot.accept( () => {
+  module.hot.accept( () =>
+	{
     console.log('Mentioned component("") reloading!');
   })
 }

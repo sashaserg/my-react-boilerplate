@@ -1,8 +1,9 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import testActions from '../actions/test'
+import testActions from '../actions/test';
+
 
 class HomePage extends Component
 {
@@ -28,13 +29,15 @@ class HomePage extends Component
 }
 
 
-function mapStateToProps (state) {
+function mapStateToProps (state)
+{
 	return {
 		test: state.get('test').toJS()
 	}
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch)
+{
 	return {
 		testActions: bindActionCreators(testActions, dispatch)
 	}

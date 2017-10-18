@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux-immutable';
 import { routerReducer } from 'react-router-redux';
 
-import test from './test'
+import test from './test';
 
 const rootReducer = combineReducers(
     {

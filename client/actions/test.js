@@ -2,8 +2,10 @@ import { createActionAsync } from 'redux-act-async';
 
 const actions =
 	{
-		testAction: (() => {
-			function testAction(payload) {
+		testAction: (() =>
+		{
+			function testAction(payload)
+			{
 				return {
 					type: testAction.type,
 					payload: payload
@@ -14,7 +16,8 @@ const actions =
 			return testAction;
 		})(),
 
-		testActionAsync: createActionAsync('TEST_ACTION_ASYNC', () => {
+		testActionAsync: createActionAsync('TEST_ACTION_ASYNC', () =>
+		{
 			return (Promise.resolve()).then( () => { return {field:"field"} } );
 		})
 	};
