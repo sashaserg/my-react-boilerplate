@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import { Route } from 'react-router';
 import { Switch } from 'react-router-dom';
 
-import HomePage from './containers/HomePage'
+import HomePage from './containers/HomePage';
 
 
 class routes extends Component

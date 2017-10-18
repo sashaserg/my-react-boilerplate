@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import testActions from '../actions/test';
 
+import HelloComponent from '../components/HelloComponent';
 
 class HomePage extends Component
 {
@@ -22,7 +23,7 @@ class HomePage extends Component
 	{
 		return (
 			<div>
-				<h1>Home Page</h1>
+				<HelloComponent parentProps={this.props.test}/>
 			</div>
 		)
 	}
