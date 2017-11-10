@@ -161,7 +161,7 @@ class PaintComponent extends Component
 
         drawingParams:
           {
-            lineWidth: 5,
+            lineWidth: 7,
             minLineWidth: 1,
             maxLineWidth: 100,
             selectedFilter: "color",
@@ -644,21 +644,12 @@ class PaintComponent extends Component
 
     ctx.strokeStyle = this.state.drawingParams.color;
     ctx.fillStyle = this.state.drawingParams.color;
-    ctx.lineWidth = this.state.drawingParams.lineWidth;
-    ctx.shadowBlur = 0;
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 0;
-    ctx.shadowColor =  getTintedColor(this.state.drawingParams.color, 25);
+    ctx.lineWidth = this.state.drawingParams.lineWidth*3;
 
-    const startPos = [((Date.now() % 2001) / 1000)*Math.PI, ((Date.now() % 4000) / 2000)*Math.PI,  ((Date.now() % 1500) / 750)*Math.PI ] ;
-    const startPosReversed = [((2001 - Date.now() % 2001) / 1000)*Math.PI, ((1300 - Date.now() % 1300) / 650)*Math.PI,  ((1500 - Date.now() % 1500) / 750)*Math.PI ] ;
+    const startPos = ((Date.now() % 4000) / 2000 )*Math.PI;
 
     const center = {x: this.state.canvasParams.width/2, y: this.state.canvasParams.height/2};
-    const radius = 50;
-    const radiusVolatile = 40 + Math.abs(10 * Math.sin( ((Date.now()/1500)%2)*Math.PI));
-
-    const circlesRotationRadius = 250;
-    const linesRotationRadius = 150;
+    const radius = this.state.canvasParams.height/2.5;
 
     //=====================================================================================
 
@@ -685,27 +676,34 @@ class PaintComponent extends Component
       ctx.closePath();
     }
 
-    drawCircle( center.x + circlesRotationRadius*Math.cos(startPos[1]), center.y + circlesRotationRadius*Math.sin(startPos[1]), radiusVolatile, 0, 2*Math.PI);
-    drawCircle( center.x - circlesRotationRadius*Math.cos(startPos[1]), center.y - circlesRotationRadius*Math.sin(startPos[1]), radiusVolatile, 0, 2*Math.PI);
-    drawCircle( center.x,  center.y, radiusVolatile*0.1, 0, 2*Math.PI);
+    //drawing
 
-    connectLine(center.x + linesRotationRadius*Math.cos(startPos[1]), center.y + linesRotationRadius*Math.sin(startPos[1]),
-      center.x - linesRotationRadius*Math.cos(startPos[1]), center.y - linesRotationRadius*Math.sin(startPos[1]));
+    const leftKey = {x:center.x + radius*0.7 *Math.cos(startPos), y: center.y +  radius*0.7*Math.sin(startPos) };
+    const rightKey = {x:center.x - radius*0.7*Math.cos(startPos), y: center.y  - radius*0.7*Math.sin(startPos) };
 
-    connectLine(center.x, center.y,
-      center.x - linesRotationRadius*Math.cos(startPos[1]) - Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y - linesRotationRadius*Math.sin(startPos[1]) + (radiusVolatile)*Math.cos(startPos[1]));
-    connectLine(center.x, center.y,
-      center.x - linesRotationRadius*Math.cos(startPos[1]) + Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y - linesRotationRadius*Math.sin(startPos[1]) - (radiusVolatile)*Math.cos(startPos[1]));
-    connectLine(center.x - linesRotationRadius*Math.cos(startPos[1]) - Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y - linesRotationRadius*Math.sin(startPos[1]) + (radiusVolatile)*Math.cos(startPos[1]),
-      center.x - linesRotationRadius*Math.cos(startPos[1]) + Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y - linesRotationRadius*Math.sin(startPos[1]) - (radiusVolatile)*Math.cos(startPos[1]));
+    const topKey = {x:center.x + radius*0.7 *Math.cos(startPos + Math.PI*0.5), y: center.y +  radius*0.7*Math.sin(startPos + Math.PI*0.5) };
+    const botKey = {x:center.x - radius*0.7*Math.cos(startPos + Math.PI*0.5), y: center.y  - radius*0.7*Math.sin(startPos + Math.PI*0.5) };
 
-    connectLine(center.x, center.y,
-      center.x + linesRotationRadius*Math.cos(startPos[1]) - Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y + linesRotationRadius*Math.sin(startPos[1]) + (radiusVolatile)*Math.cos(startPos[1]));
-    connectLine(center.x, center.y,
-      center.x + linesRotationRadius*Math.cos(startPos[1]) + Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y + linesRotationRadius*Math.sin(startPos[1]) - (radiusVolatile)*Math.cos(startPos[1]));
-    connectLine(center.x + linesRotationRadius*Math.cos(startPos[1]) + Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y + linesRotationRadius*Math.sin(startPos[1]) - (radiusVolatile)*Math.cos(startPos[1]),
-      center.x + linesRotationRadius*Math.cos(startPos[1]) - Math.abs((radiusVolatile)*Math.sin(startPos[1])) , center.y + linesRotationRadius*Math.sin(startPos[1]) + (radiusVolatile)*Math.cos(startPos[1])
-    );
+    ctx.fillStyle = "#f00";
+    ctx.fillRect(0, 0, this.state.canvasParams.width, this.state.canvasParams.height );
+    ctx.fillStyle = "#fefefe";
+    drawCircle(center.x, center.y, radius, 0, 2*Math.PI );
+    ctx.strokeStyle = "#000";
+
+    connectLine(leftKey.x, leftKey.y , rightKey.x, rightKey.y  );
+    connectLine(topKey.x, topKey.y , botKey.x, botKey.y  );
+
+    //parts
+
+    connectLine(leftKey.x, leftKey.y,
+      center.x + radius*0.8 *Math.cos(startPos+Math.PI*0.2), center.y +  radius*0.8*Math.sin(startPos+Math.PI*0.2));
+    connectLine(rightKey.x, rightKey.y,
+      center.x - radius*0.8 *Math.cos(startPos+Math.PI*0.2), center.y -  radius*0.8*Math.sin(startPos+Math.PI*0.2));
+
+    connectLine(topKey.x, topKey.y,
+      center.x + radius*0.8 *Math.cos(startPos+Math.PI*0.2 + Math.PI*0.5), center.y +  radius*0.8*Math.sin(startPos+Math.PI*0.2 + Math.PI*0.5));
+    connectLine(botKey.x, botKey.y,
+      center.x - radius*0.8 *Math.cos(startPos+Math.PI*0.2 + Math.PI*0.5), center.y -  radius*0.8*Math.sin(startPos+Math.PI*0.2 + Math.PI*0.5));
 
     //=====================================================================================
 
@@ -951,7 +949,11 @@ class PaintComponent extends Component
     this.state.context.lineWidth = this.state.drawingParams.lineWidth;
 
     this.state.context.beginPath();
-		this.setState({mousePressed:true, coords:{x:e.pageX - this.state.canvasWrapperParams.left, y:e.pageY - this.state.canvasWrapperParams.top} });
+		this.setState(
+		  {
+        mousePressed:true,
+        coords:{x:e.pageX - this.state.canvasWrapperParams.left, y: e.pageY - this.state.canvasWrapperParams.top}
+		  });
 	}
 
 	_onMouseUp(e)
