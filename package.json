@@ -1,6 +1,6 @@
 {
-  "name": "react-redux-boilerplate",
-  "version": "0.0.0",
+  "name": "system",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "NODE_ENV=production node ./server/bin/www",
@@ -9,7 +9,6 @@
     "build:webpack:dev": "NODE_ENV=development webpack --progress --colors --config ./webpack.config.js",
     "build:dev": "npm run build:webpack:dev",
     "build": "npm run build:webpack",
-
     "wnd-start": "set NODE_ENV='production' && node ./server/bin/www",
     "wnd-dev": "set NODE_ENV='development' && node ./server/bin/www",
     "wnd-build:webpack": "set NODE_ENV='production' && webpack --progress --colors --config ./webpack.config.js",
@@ -28,6 +27,9 @@
     "history": "^4.7.2",
     "immutable": "^3.8.1",
     "morgan": "~1.8.1",
+    "mysql": "^2.15.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.6.0",
     "react-addons-shallow-compare": "^15.6.0",
@@ -37,7 +39,7 @@
     "react-dom-factories": "^1.0.1",
     "react-redux": "^5.0.6",
     "react-router": "^4.1.2",
-    "react-router-bootstrap": "^0.24.2",
+    "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.1.2",
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.7.2",

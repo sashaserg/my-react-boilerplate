@@ -1,7 +1,13 @@
 @import "pragma";
 @import "reset";
 
-body, html, #root
+@import "components/headerBar";
+@import "components/footerGeneral";
+
+@import "containers/homePage";
+
+body, html, #root, #root > div
 {
+  height: 100%;
   width: 100%;
 }

@@ -1,3 +1,5 @@
+// # INITIALIZING COMPONENT FOR APP
+
 import React from 'react';
 import { render } from 'react-dom';
 import { ConnectedRouter } from 'react-router-redux';
@@ -8,7 +10,7 @@ import { Provider } from 'react-redux';
 import './styles/global.scss';
 const store = configureStore();
 
-import Routes from './routes';
+import Root from './root';
 
 // ================= check mode fn block =========================
 
@@ -39,7 +41,7 @@ render(
 
 	<Provider store={store}>
 		<ConnectedRouter history={history}>
-			<Routes/>
+			<Root/>
 		</ConnectedRouter>
 	</Provider>,
 

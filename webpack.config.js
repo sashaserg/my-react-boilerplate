@@ -7,7 +7,8 @@ const env = process.env.NODE_ENV;
 
 let plugins =
 	[
-		new webpack.DefinePlugin({
+		new webpack.DefinePlugin(
+		{
 			__DEV__: env !== 'production',
 			'process.env':
         {
@@ -20,7 +21,8 @@ let plugins =
 
 if (env === 'production')
 	{
-		plugins.push(new webpack.optimize.UglifyJsPlugin({
+		plugins.push(new webpack.optimize.UglifyJsPlugin(
+    {
 			beautify: false,
 			comments: false,
 			compress: {

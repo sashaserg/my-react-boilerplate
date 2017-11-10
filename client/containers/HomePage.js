@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
+
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import testActions from '../actions/test';
 
-import HelloComponent from '../components/HelloComponent';
+import {Row} from 'react-bootstrap';
+import HeaderBar from "../components/common/HeaderBar";
+import FooterGeneral from "../components/common/FooterGeneral";
+
 
 class HomePage extends Component
 {
@@ -22,9 +25,13 @@ class HomePage extends Component
 	render()
 	{
 		return (
-			<div>
-				<HelloComponent parentProps={this.props.test}/>
-			</div>
+			<Row id={"HomePage"}>
+
+				<HeaderBar/>
+
+				<FooterGeneral/>
+
+			</Row>
 		)
 	}
 }
