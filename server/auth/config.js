@@ -4,7 +4,6 @@ import UserController from '../mvc/controllers/user'
 
 module.exports = (passport) =>
 {
-
   passport.serializeUser((user, done) =>
   {
     done(null, user);
@@ -12,7 +11,7 @@ module.exports = (passport) =>
 
   passport.deserializeUser((user, done) =>
   {
-    UserController.getById(user.id)
+    UserController.getWithAccessInfoById(user.id)
       .then( (user) =>
       {
         return done(null, user);

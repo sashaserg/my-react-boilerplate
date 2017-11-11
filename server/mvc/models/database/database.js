@@ -4,7 +4,7 @@ const connectionData =
   {
     host: "localhost",
     user: "root",
-    password: "user",
+    password: "Dead1408",
     database: 'my_project'
   };
 

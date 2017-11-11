@@ -9,8 +9,8 @@ class LoginForm extends Component
   {
     requirements:
     {
-      minPasswordLength: 4,
-      minLoginLength: 4
+      minPasswordLength: 3,
+      minLoginLength: 3
     },
 
 

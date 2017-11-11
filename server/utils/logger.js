@@ -2,7 +2,7 @@ import config from '../bin/config';
 const logEnabled = config.serverLogEnabled;
 
 const endl = "\n";
-const separator = "=========================";
+const separator = "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
 
 
 class Logger
@@ -11,7 +11,7 @@ class Logger
   {
     const errorTime = Date.now().toLocaleString();
     const errorQuery = `Query: + ${query}`;
-    const errorMessage = `${separator} ${endl} ${errorTime} ${endl}  ${errorQuery} ${endl}  ${error} `;
+    const errorMessage = `${separator} ${endl} ${errorTime} ${endl}  ${errorQuery} ${endl}  ${error} ${endl}${separator}`;
 
 
     if (logEnabled)
@@ -26,7 +26,7 @@ class Logger
     const errorPath = `Path: + ${path}`;
     const errorMsg = message;
 
-    const errorMessage = `${separator} ${endl} ${errorTime} ${endl}  ${errorPath} ${endl} ${error} ${endl} ${errorMsg} `;
+    const errorMessage = `${separator} ${endl} ${errorTime} ${endl}  ${errorPath} ${endl} ${error} ${endl} ${errorMsg}${endl}${separator}`;
 
 
     if (logEnabled)
@@ -40,7 +40,7 @@ class Logger
     const errorTime = Date.now().toLocaleString();
     const errorDesc = `Auth login: ${login}`;
 
-    const errorMessage = `${separator} ${endl}${errorTime} ${endl}${errorDesc} ${endl}${error}`;
+    const errorMessage = `${separator} ${endl}${errorTime} ${endl}${errorDesc} ${endl}${error}${endl}${separator}`;
 
 
     if (logEnabled)

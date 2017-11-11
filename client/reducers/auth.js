@@ -9,7 +9,7 @@ const nullUser =
     id: null,
     login: null,
     mail: null,
-    accessLevel: null
+    access: null
   };
 
 const initialState = fromJS(
@@ -31,13 +31,35 @@ export default createReducer(
 
     [authActions.login.ok]: (state, payload) =>
 			{
-				return state.set('loading', false);
+				return state.set('user', payload.response).set('loading', false);
 			},
 
     [authActions.login.error]: (state, payload) =>
 			{
 				return state.set('loading', false);
 			},
+
+		// CHECK AUTH
+
+		[authActions.checkAuth.request]: (state, payload) =>
+		{
+      return state.set('loading', true);
+    },
+
+		[authActions.checkAuth.ok]: (state, payload) =>
+		{
+			if(payload.response === null)
+			{
+        return state.set('user', nullUser).set('loading', false);
+      }
+
+      return state.set('user', payload.response).set('loading', false);
+    },
+
+		[authActions.checkAuth.error]: (state, payload) =>
+		{
+      return state.set('loading', false);
+    },
 
 		// LOGOUT SECTION
 

@@ -5,20 +5,19 @@ import passport from 'passport';
 
 import Logger from '../../utils/logger';
 import Response from '../../utils/response';
-import UserController from '../../mvc/controllers/user';
 
 
-const errorMessages =
+const messages =
   {
-    loadUsersFail: "Failed to load all users",
-    loadUserFail: "Failed to load single user"
+    successfulLogin: "Login is successful.",
+    successfulLogout: "Logged out successful.",
+    wrongLoginData: "Data provided is wrong.",
+    connectionError: "Error during connection"
   };
-
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
-
-router.post('/login', function(req, res, next)
+router.post('/login', (req, res, next) =>
 {
   passport.authenticate( 'local-login', (err, user) =>
   {
@@ -41,9 +40,11 @@ router.post('/login', function(req, res, next)
           {
             const answer =
               {
-                message: "Successfully logged in.",
+                message: messages.successfulLogin,
+                id: user.id,
                 login: user.login,
-                id: user.id
+                mail: user.mail,
+                access: user.access
               };
 
             Response.send(res, true, answer);
@@ -55,7 +56,7 @@ router.post('/login', function(req, res, next)
       {
         const answer =
           {
-            message: "Wrong data.",
+            message: messages.wrongLoginData,
           };
 
         Response.send(res, false, answer);
@@ -64,123 +65,27 @@ router.post('/login', function(req, res, next)
   }) (req,res,next);
 });
 
-router.get('/logout', (req, res, next) =>
+router.post('/logout', (req, res, next) =>
 {
   req.logout();
 
   const answer =
     {
-      message:"Logged out."
+      message: messages.successfulLogout
     };
 
   Response.send(res, true, answer);
 });
 
+router.get('/status', (req, res, next) =>
+{
+  const loggedIn = (req.user != undefined);
+  const user = req.user;
+
+  Response.send(res, true, { logged:loggedIn, user:user });
+});
+
 /*
-router.get('/logout', function(req, res, next)
-{
-  UserController.getAll()
-    .then( (users) =>
-    {
-      Response.send( res, true, { user: users } );
-    })
-    .catch( (err) =>
-    {
-      Logger.apiError(err, errorMessages.loadUsersFail, req.originalUrl) ;
-      Response.send( res, false, { message: errorMessages.loadUsersFail });
-    });
-});
-
-
-router.post('/signIn', (req, res, next ) =>
-{
-  passport.authenticate( 'local-signin', (err, user, info) =>
-  {
-    if( err )
-    {
-      next( err );
-    }
-    else
-    {
-      if( user )
-      {
-        req.logIn( user, function( err )
-        {
-          if( err )
-          {
-            return next(err);
-          }
-
-          else
-          {
-            return res.json(
-              {
-                confirmation : true,
-                message      : "Successfully logged in.",
-                login: user.login,
-                id: user.id
-              });
-          }
-        } )
-
-      }
-      else
-      {
-        return res.json(
-          {
-            confirmation : false,
-            message      : "Wrong user data."
-          });
-      }
-
-    }
-  }) (req,res,next);
-
-});
-
-router.post('/adminSignIn', (req, res, next ) =>
-{
-  passport.authenticate( 'local-admin-signin', (err, user, info) =>
-  {
-    if( err )
-    {
-      next( err );
-    }
-    else
-    {
-      if( user )
-      {
-        req.logIn( user, function( err )
-        {
-          if( err )
-          {
-            return next(err);
-          }
-          else
-          {
-            return res.json(
-              {
-                confirmation : true,
-                message      : "Successfully logged in.",
-                login: user.login,
-                id: user.id
-              });
-          }
-        } );
-      }
-      else
-      {
-        return res.json(
-          {
-            confirmation : false,
-            message      : "Wrong user data."
-          });
-      }
-
-    }
-  }) (req,res,next);
-
-});
 
 router.post('/signUp', (req, res, next ) =>
 {
@@ -227,19 +132,6 @@ router.post('/signUp', (req, res, next ) =>
   });
 
 });
-
-router.get('/logOut', function(req, res, next)
-{
-  req.logout();
-  req.session.items = [];
-
-  res.json(
-    {
-      confirmation:true,
-      message:"Logged out."
-    });
-});
-
 
 */
 

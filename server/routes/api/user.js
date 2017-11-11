@@ -19,6 +19,8 @@ const errorMessages =
 
 router.get('/', function(req, res, next)
 {
+  console.log(req.user);
+
   UserController.getAll()
     .then( (users) =>
     {

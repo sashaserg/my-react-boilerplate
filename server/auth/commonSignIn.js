@@ -27,7 +27,7 @@ export default new LocalStrategy(
 
         else
         {
-          user = { id: user.id, login: user.login };
+          user = { id: user.id, login: user.login, access: user.access };
           return done( null,  user  );
         }
 
