@@ -49,25 +49,7 @@ class LoginForm extends Component
       && this.state.inputData.login.length > this.state.requirements.minLoginLength)
     {
       this.props.onFormSubmit(this.state.inputData);
-      this.clearInputs();
     }
-  }
-
-  clearInputs()
-  {
-    const cleanInput =
-      {
-        login: "",
-        password: "",
-
-        changed:
-          {
-            login: false,
-            password: false
-          }
-      };
-
-    this.setState({inputData: cleanInput})
   }
 
   //=========================================

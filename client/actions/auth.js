@@ -28,7 +28,7 @@ const actions =
             if(data.confirmation == false)
 						{
               throw new Error('Wrong credentials.');
-						}
+            }
 						else if(data.confirmation == true)
 						{
 							const userData =

@@ -18,8 +18,6 @@ class HomePage extends Component
 
 	componentDidMount()
 	{
-		this.props.testActions.testAction();
-		this.props.testActions.testActionAsync();
 	}
 
 	render()
@@ -35,7 +33,6 @@ class HomePage extends Component
 		)
 	}
 }
-
 
 function mapStateToProps (state)
 {

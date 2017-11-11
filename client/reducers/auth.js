@@ -15,6 +15,8 @@ const nullUser =
 const initialState = fromJS(
 	{
 		loading: false,
+
+		logged: false,
 		user: nullUser
 	});
 
@@ -31,7 +33,7 @@ export default createReducer(
 
     [authActions.login.ok]: (state, payload) =>
 			{
-				return state.set('user', payload.response).set('loading', false);
+				return state.set('user', payload.response).set('logged', true).set('loading', false);
 			},
 
     [authActions.login.error]: (state, payload) =>
@@ -50,10 +52,10 @@ export default createReducer(
 		{
 			if(payload.response === null)
 			{
-        return state.set('user', nullUser).set('loading', false);
+        return state.set('user', nullUser).set('logged', false).set('loading', false);
       }
 
-      return state.set('user', payload.response).set('loading', false);
+      return state.set('user', payload.response).set('logged', true).set('loading', false);
     },
 
 		[authActions.checkAuth.error]: (state, payload) =>

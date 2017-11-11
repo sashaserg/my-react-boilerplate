@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Redirect} from 'react-router-dom';
 
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,29 +19,42 @@ class LoginPage extends Component
 		super(props);
 	}
 
-	componentDidMount()
-	{
-	}
-
-
 	//==============================================================
 
 	handleFormSubmit(data)
 	{
-		this.props.auth.login(data);
+		this.props.authActions.login(data);
 	}
 
 	//==============================================================
+
+	authCheck()
+	{
+		if( this.props.auth.logged && this.props.auth.loading == false )
+		{
+			return(
+				<Redirect to={'/home'}/>
+			)
+		}
+		else
+		{
+			return null;
+		}
+	}
 
 	render()
 	{
 		return (
 			<Row id={"LoginPage"}>
 
+				{ this.authCheck() }
+
 				<HeaderBar/>
 
 				<Clearfix id={"LoginSection"}>
+
 					<LoginForm onFormSubmit={(data) => this.handleFormSubmit(data) }/>
+
 				</Clearfix>
 
 				<FooterGeneral/>
@@ -54,14 +68,14 @@ class LoginPage extends Component
 function mapStateToProps (state)
 {
 	return {
-		test: state.get('test').toJS()
+		auth: state.get('auth').toJS()
 	}
 }
 
 function mapDispatchToProps(dispatch)
 {
 	return {
-		auth: bindActionCreators(authActions, dispatch)
+		authActions: bindActionCreators(authActions, dispatch)
 	}
 }
 
