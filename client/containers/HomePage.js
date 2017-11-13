@@ -25,7 +25,7 @@ class HomePage extends Component
 		return (
 			<Row id={"HomePage"}>
 
-				<HeaderBar/>
+				<HeaderBar user={this.props.auth.user}/>
 
 				<FooterGeneral/>
 
@@ -37,7 +37,7 @@ class HomePage extends Component
 function mapStateToProps (state)
 {
 	return {
-		test: state.get('test').toJS()
+		test: state.get('auth').toJS()
 	}
 }
 

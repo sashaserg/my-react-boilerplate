@@ -21,7 +21,7 @@ const actions =
 				body: body
 			};
 
-			return fetch( loginUrl, settings )
+			return fetch(loginUrl, settings)
 				.then( answer => answer.json() )
 				.then( (data) =>
 					{
@@ -54,6 +54,7 @@ const actions =
 				});
 			// !NO RETHROW TO DEAL WITH ERRORS ONLY IN PROMISE
 		}, { noRethrow:true }),
+
 
 		checkAuth: createActionAsync('AUTH_CHECK_COMMON', () =>
 		{
@@ -102,6 +103,7 @@ const actions =
 			// !NO RETHROW TO DEAL WITH ERRORS ONLY IN PROMISE
 		}, { noRethrow:true }),
 
+
 		logout: createActionAsync('AUTH_LOGOUT', ( ) =>
 		{
 			const logoutUrl = '/api/auth/logout';
@@ -118,31 +120,31 @@ const actions =
 				method: 'POST',
 			};
 
-	return fetch( logoutUrl, settings )
-		.then( answer => answer.json() )
-		.then( (data) =>
-		{
-			if(data.confirmation == true)
-			{
-				return Promise.resolve();
-			}
-			else if(data.confirmation == false)
-			{
-				throw new Error("Logout error.");
-			}
-			// no connection
-			else
-			{
-				throw new Error("Connection error.");
-			}
-		})
-		.catch( (error) =>
-		{
-			// Wrong data or no connection;
-			return Promise.reject(error);
-		});
-		// !NO RETHROW TO DEAL WITH ERRORS ONLY IN PROMISE
-	}, { noRethrow:true })
+      return fetch( logoutUrl, settings )
+        .then( answer => answer.json() )
+        .then( (data) =>
+        {
+          if(data.confirmation == true)
+          {
+            return Promise.resolve();
+          }
+          else if(data.confirmation == false)
+          {
+            throw new Error("Logout error.");
+          }
+          // no connection
+          else
+          {
+            throw new Error("Connection error.");
+          }
+        })
+        .catch( (error) =>
+        {
+          // Wrong data or no connection;
+          return Promise.reject(error);
+        });
+        // !NO RETHROW TO DEAL WITH ERRORS ONLY IN PROMISE
+    }, { noRethrow:true })
 
 	};
 

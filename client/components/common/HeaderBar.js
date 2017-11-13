@@ -16,6 +16,7 @@ class HeaderBar extends Component
 
       <Navbar id={"HeaderBar"}>
 
+
         <Navbar.Header>
 
           <Navbar.Brand>
@@ -27,6 +28,7 @@ class HeaderBar extends Component
           </Navbar.Brand>
 
         </Navbar.Header>
+
 
         <Nav>
 
@@ -46,7 +48,20 @@ class HeaderBar extends Component
             </NavItem>
           </LinkContainer>
 
+          {this.props.user
+            ?
+              <LinkContainer to={'/home'}>
+                <NavItem>
+                  <span>
+                    Hello
+                  </span>
+                </NavItem>
+              </LinkContainer>
+            :
+              null
+          }
         </Nav>
+
 
       </Navbar>
     )
