@@ -41,9 +41,9 @@ app.use(require('webpack-hot-middleware')(compiler));
 //======================================================
 //=================== AUTH CONFIG ======================
 
-app.use( session( config.sessionsConfig ));
+app.use( session( config.session ));
 app.use( passport.initialize() );
-app.use( passport.session( config.sessionsConfig ) );
+app.use( passport.session( config.session ) );
 
 //passport configuration
 require('./auth/config')(passport);

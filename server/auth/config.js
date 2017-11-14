@@ -1,5 +1,5 @@
 import localSignInStrategy from './commonSignIn';
-import UserController from '../mvc/controllers/user'
+import AuthController from '../mvc/controllers/auth'
 
 
 module.exports = (passport) =>
@@ -11,7 +11,7 @@ module.exports = (passport) =>
 
   passport.deserializeUser((user, done) =>
   {
-    UserController.getWithAccessInfoById(user.id)
+    AuthController.getWithAccessInfoById(user.id)
       .then( (user) =>
       {
         return done(null, user);

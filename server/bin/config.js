@@ -1,8 +1,9 @@
 const config =
   {
-    serverLogEnabled: true,
+    consoleLogEnabled: true,
+    mailLogEnabled: true,
 
-    sessionsConfig:
+    session:
       {
         secret: "a9t0AWT21nKJh1612G2gAb",
         resave: false,
