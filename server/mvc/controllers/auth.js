@@ -53,4 +53,4 @@ class AuthController
     }
   }
 
-export default authController;
+export default AuthController;
