@@ -29,7 +29,6 @@ router.post('/login', (req, res, next) =>
     {
       if( user )
       {
-
         req.logIn( user, ( err ) =>
         {
           if( err )
@@ -62,7 +61,7 @@ router.post('/login', (req, res, next) =>
             message: messages.wrongLoginData,
           };
 
-        Response.send(res, false, answer);
+        Response.send(res, true, answer);
       }
     }
   }) (req,res,next);
@@ -87,6 +86,8 @@ router.get('/status', (req, res, next) =>
 
   Response.send(res, true, { logged:loggedIn, user:user, session: req.sessionID });
 });
+
+
 
 /*
 

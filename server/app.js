@@ -8,7 +8,8 @@ import bodyParser from 'body-parser';
 import config from './bin/config';
 const app = express();
 
-// ===================================================
+//======================================================
+//=================== AUTH CONFIG ======================
 
 import session from 'express-session';
 import passport from 'passport';
@@ -37,16 +38,6 @@ app.use(require('webpack-dev-middleware')(compiler,
   }));
 
 app.use(require('webpack-hot-middleware')(compiler));
-
-//======================================================
-//=================== AUTH CONFIG ======================
-
-app.use( session( config.session ));
-app.use( passport.initialize() );
-app.use( passport.session( config.session ) );
-
-//passport configuration
-require('./auth/config')(passport);
 
 
 // =====================================================

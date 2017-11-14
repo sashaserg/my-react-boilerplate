@@ -17,7 +17,7 @@ class Response
 
     // fill out the template
     result.confirmation = confirmation;
-    result.answer =  Object.assign( {}, { ...answer} );
+    result.answer =  Object.assign( {}, {...answer} );
 
     // respond with filled template
     res.json(result);

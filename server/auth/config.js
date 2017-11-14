@@ -18,10 +18,9 @@ module.exports = (passport) =>
       })
       .catch( (error) =>
       {
-        return done(error);
+        return done(error, null);
       });
   });
-
 
   passport.use( 'local-login', localSignInStrategy );
 };

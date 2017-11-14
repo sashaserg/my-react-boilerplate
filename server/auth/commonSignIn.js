@@ -3,6 +3,12 @@ import AuthController from '../mvc/controllers/auth';
 
 import Logger from '../utils/logger';
 
+const errorMessages =
+  {
+    wrongPassword: "Some user entered wrong password.",
+    wrongData:"Some user entered wrong data."
+  };
+
 
 export default new LocalStrategy(
   {
@@ -17,16 +23,16 @@ export default new LocalStrategy(
       {
         if(user == undefined)
         {
-          throw new Error("Some user entered wrong password.");
+          throw new Error(errorMessages.wrongData);
         }
 
         if(user.password != password)
         {
-          throw new Error("Some user entered wrong password.");
+          throw new Error(errorMessages.wrongPassword);
         }
         else
         {
-          user = { id: user.id, login: user.login, access: user.access };
+          user = { id: user.id, login: user.login, mail: user.mail, access: user.access };
           return done( null,  user  );
         }
 
@@ -34,7 +40,7 @@ export default new LocalStrategy(
       .catch( (error) =>
       {
         Logger.userAuthError(error, login );
-        return done(null, false )
+        return done(error, null )
       })
   }
 );
