@@ -1,12 +1,7 @@
 import mysql from 'mysql';
 
-const connectionData =
-  {
-    host: "localhost",
-    user: "root",
-    password: "Dead1408",
-    database: 'my_project'
-  };
+import config from '../../../bin/config';
+const connectionData = config.database.connectionData;
 
 function checkTables ()
 {
